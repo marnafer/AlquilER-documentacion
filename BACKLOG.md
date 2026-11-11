@@ -89,7 +89,34 @@
 
 ---
 
-## 5. Mejoras de UX/UI
+## 5. Testing
+
+| ID | Tipo | Título | Descripción | Prioridad | Estado |
+|---|---|---|---|---|---|
+| TEST-001 | 🧪 | Tests E2E: flujo de login | Playwright: registro → verificación → login → logout. | 🟠 | ⏳ |
+| TEST-002 | 🧪 | Tests E2E: flujo de reserva | Playwright: buscar → reservar → confirmar → finalizar → reseñar. | 🟠 | ⏳ |
+| TEST-003 | 🧪 | Tests E2E: publicación de propiedad | Playwright: crear propiedad → subir imágenes → publicar → editar. | 🟡 | ⏳ |
+| TEST-004 | 🧪 | Tests unitarios: AuthService | Cubrir login, refresh, logout, verificación de email. | 🟡 | ⏳ |
+| TEST-005 | 🧪 | Tests unitarios: ReservaService | Cubrir crear, confirmar, rechazar, cancelar, finalizar. | 🟡 | ⏳ |
+| TEST-006 | 🧪 | Tests unitarios: PropiedadService | Cubrir CRUD, imágenes, servicios, soft delete. | 🟡 | ⏳ |
+| TEST-007 | 🧪 | Tests de integración: API endpoints | Verificar request/response de todos los endpoints. | 🟡 | ⏳ |
+| TEST-008 | 🧪 | Cobertura ≥ 70% | Alcanzar 70% de cobertura en servicios y repositorios. | 🟡 | ⏳ |
+
+---
+
+## 6. Documentación
+
+| ID | Tipo | Título | Descripción | Prioridad | Estado |
+|---|---|---|---|---|---|
+| DOC-001 | 📋 | Actualizar OpenAPI spec | Sincronizar openapi.json con los endpoints actuales del código. | 🟡 | ⏳ |
+| DOC-002 | 📋 | Actualizar README-BACKEND | Incluir instrucciones de migraciones y seeders. | 🟢 | ⏳ |
+| DOC-003 | 📋 | Actualizar README-FRONTEND | Incluir instrucciones de variables de entorno y build. | 🟢 | ⏳ |
+| DOC-004 | 📋 | Documentar endpoints de admin | Agregar al API-CONTRACT los endpoints `/admin/*`. | 🟡 | ⏳ |
+| DOC-005 | 📋 | Changelog actualizado | Mantener CHANGELOG.md con cada release. | 🟢 | ⏳ |
+
+---
+
+## 7. Mejoras de UX/UI
 
 | ID | Título | Descripción | Prioridad | Estado |
 |---|---|---|---|---|
@@ -102,7 +129,7 @@
 
 ---
 
-## 6. Sprints sugeridos
+## 8. Sprints sugeridos
 
 ### Sprint 1: Producción estable (crítico)
 - BL-001: Configurar SMTP
@@ -123,6 +150,9 @@
 - BL-012: Rotación de logs
 - DT-001: Queries N+1
 - DT-002: Cobertura de tests
+- TEST-001 a TEST-008: Tests E2E y unitarios
+- DOC-001: Actualizar OpenAPI spec
+- DOC-004: Documentar endpoints de admin
 - UX-001: Skeletons
 - UX-002: Toast
 
@@ -137,15 +167,17 @@
 
 ---
 
-## 7. Métricas de progreso
+## 9. Métricas de progreso
 
 | Categoría | Total | Completados | Pendientes |
 |---|---|---|---|
 | Funcionalidades | 21 | 1 | 20 |
 | Bugs | 6 | 4 | 2 |
 | Deuda técnica | 6 | 0 | 6 |
+| Testing | 8 | 0 | 8 |
+| Documentación | 5 | 0 | 5 |
 | UX/UI | 6 | 0 | 6 |
-| **Total** | **39** | **5** | **34** |
+| **Total** | **52** | **5** | **47** |
 
 ---
 
