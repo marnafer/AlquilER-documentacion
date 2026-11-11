@@ -439,3 +439,193 @@ flowchart TD
     X2 --> H3
     X3 --> C5
 ```
+
+---
+
+## 17. Diagrama de flujo de datos (DFD) — Nivel 1
+
+```mermaid
+flowchart LR
+    U[Usuario] -->|Credenciales, datos de propiedad, reservas| F[Frontend SPA]
+    F -->|JSON + cookies| B[Backend API]
+    B -->|Queries SQL| D[(MySQL)]
+    B -->|Archivos| S[Storage<br/>uploads, logs, cache]
+    B -->|Emails<|end|> M[Servidor SMTP]
+    D -->|Datos| B
+    S -->|Archivos| B
+    M -->|Confirmación| B
+    B -->|JSON responses| F
+    F -->|HTML/CSS/JS<|end|> U
+```
+
+### Flujos de datos principales
+
+| Flujo | Origen | Destino | Datos |
+|---|---|---|---|
+| Autenticación | Usuario → Frontend → Backend → BD | Tokens en cookies | email, contraseña |
+| Publicación de propiedad | Usuario → Frontend → Backend → BD + Storage | Propiedad + imágenes | título, precio, fotos, servicios |
+| Reserva | Inquilino → Frontend → Backend → BD | Reserva + notificación | fechas, propiedad_id |
+| Búsqueda | Usuario → Frontend → Backend → BD (cache) | Listado paginado | filtros, orden, página |
+| Consulta | Usuario → Frontend → Backend → BD | Consulta + notificación | mensaje, propiedad_id |
+| Reseña | Usuario → Frontend → Backend → BD | Reseña + notificación | calificación, comentario |
+
+## 18. Pipeline de procesamiento de imágenes
+
+```mermaid
+flowchart TD
+    U[Usuario sube imagen] --> V{Validación<br/>tipo, tamaño, dimensiones}
+    V -->|Error| E[Rechazar con mensaje]
+    V -->|OK| O[Guardar original<br/>storage/uploads/original/]
+    O --> R1[Generar thumbnail<br/>150x150, crop center]
+    O --> R2[Generar mediana<br/>400x300, fit]
+    O --> R3[Generar grande<br/>1200x900, fit]
+    R1 --> S1[storage/uploads/thumb/]
+    R2 --> S2[storage/uploads/medium/]
+    R3 --> S3[storage/uploads/large/]
+    S1 --> DB[Guardar registro en BD<br/>imagen_propiedad]
+    S2 --> DB
+    S3 --> DB
+    DB --> CDN[Servir vía URL pública]
+```
+
+### Formatos y tamaños soportados
+
+| Tamaño | Dimensiones | Uso |
+|---|---|---|
+| Thumbnail | 150×150 | Listados, carruseles |
+| Mediana | 400×300 | Cards de catálogo |
+| Grande | 1200×900 | Detalle de propiedad |
+| Original | Sin modificar | Backup, descarga |
+
+## 19. Flujo de manejo de errores
+
+```mermaid
+flowchart TD
+    Req[Request] --> Ctrl[Controller]
+    Ctrl --> Val{Validación OK?}
+    Val -->|No| VErr[422 Validation Error<br/>detalles por campo]
+    Val -->|Sí| Svc[Service]
+    Svc --> Biz{Regla de negocio OK?}
+    Biz -->|No| BErr[400/403/409 Business Error<br/>mensaje descriptivo]
+    Biz -->|Sí| Repo[Repository]
+    Repo --> DB{Query OK?}
+    DB -->|No| DBErr[500 Database Error<br/>log interno, mensaje genérico]
+    DB -->|Sí| OK[200/201 Success]
+    Ctrl -->|Excepción no capturada| Global[Global Exception Handler]
+    Global --> Log[Log en storage/logs/errores.log]
+    Global --> Resp[500 Internal Server Error<br/>mensaje genérico al cliente]
+```
+
+### Tipos de error y códigos HTTP
+
+| Código | Tipo | Cuándo |
+|---|---|---|
+| 400 | Bad Request | Datos malformados |
+| 401 | Unauthorized | No autenticado o token inválido |
+| 403 | Forbidden | Autenticado pero sin permisos |
+| 404 | Not Found | Recurso no existe |
+| 409 | Conflict | Conflicto de estado (ej: email duplicado) |
+| 422 | Unprocessable Entity | Validación de campos fallida |
+| 429 | Too Many Requests | Rate limit excedido |
+| 500 | Internal Server Error | Error inesperado del servidor |
+
+## 20. Modelo de dominio (Class Diagram)
+
+```mermaid
+classDiagram
+    class Usuario {
+        +int id
+        +string nombre
+        +string apellido
+        +string email
+        +string telefono
+        +string domicilio
+        +string contrasena
+        +int rol_id
+        +timestamp email_verified_at
+        +publicarPropiedad()
+        +reservar()
+        +favorito()
+    }
+
+    class Propiedad {
+        +int id
+        +string titulo
+        +string descripcion
+        +decimal precio
+        +decimal expensas
+        +string direccion
+        +int categoria_id
+        +int localidad_id
+        +int propietario_id
+        +bool disponible
+        +bool destacada
+        +agregarImagen()
+        +agregarServicio()
+    }
+
+    class Reserva {
+        +int id
+        +int propiedad_id
+        +int inquilino_id
+        +date fecha_inicio
+        +date fecha_fin
+        +enum estado
+        +confirmar()
+        +rechazar()
+        +cancelar()
+        +finalizar()
+    }
+
+    class Resena {
+        +int id
+        +int reserva_id
+        +int autor_id
+        +int destinatario_id
+        +enum tipo
+        +int calificacion
+        +string comentario
+    }
+
+    class Consulta {
+        +int id
+        +int propiedad_id
+        +int usuario_id
+        +string mensaje
+        +responder()
+    }
+
+    class Notificacion {
+        +int id
+        +int usuario_id
+        +string tipo
+        +string mensaje
+        +bool leida
+        +marcarLeida()
+    }
+
+    class Favorito {
+        +int id
+        +int usuario_id
+        +int propiedad_id
+    }
+
+    class ImagenPropiedad {
+        +int id
+        +int propiedad_id
+        +string url
+        +bool es_principal
+    }
+
+    Usuario "1" --> "*" Propiedad : publica
+    Usuario "1" --> "*" Reserva : realiza
+    Usuario "1" --> "*" Consulta : crea
+    Usuario "1" --> "*" Resena : escribe
+    Usuario "1" --> "*" Notificacion : recibe
+    Usuario "1" --> "*" Favorito : tiene
+    Propiedad "1" --> "*" ImagenPropiedad : tiene
+    Propiedad "1" --> "*" Reserva : recibe
+    Propiedad "1" --> "*" Consulta : recibe
+    Reserva "1" --> "*" Resena : genera
+    Reserva "1" --> "1" Propiedad : es de
+```
