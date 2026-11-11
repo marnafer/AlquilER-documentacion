@@ -266,3 +266,176 @@ flowchart LR
 - **Instrumentación**: `PerformanceMiddleware` registra tiempos de respuesta en `storage/logs/performance.jsonl`.
 - **Rotación de logs**: 5MB por archivo, 3 generaciones.
 - **Eloquent eager loading**: `with()` para evitar N+1 en listados con imágenes y servicios.
+
+---
+
+## 12. Máquina de estados: Reservas
+
+```mermaid
+stateDiagram-v2
+    [*] --> Pendiente: Usuario crea reserva
+    Pendiente --> Confirmada: Propietario confirma
+    Pendiente --> Rechazada: Propietario rechaza
+    Pendiente --> Cancelada: Inquilino cancela
+    Confirmada --> Finalizada: Propietario finaliza
+    Confirmada --> Cancelada: Inquilino cancela
+    Rechazada --> [*]
+    Cancelada --> [*]
+    Finalizada --> [*]
+```
+
+### Transiciones válidas
+
+| Estado actual | Acción | Nuevo estado | Quién ejecuta |
+|---|---|---|---|
+| Pendiente | Confirmar | Confirmada | Propietario |
+| Pendiente | Rechazar | Rechazada | Propietario |
+| Pendiente | Cancelar | Cancelada | Inquilino |
+| Confirmada | Finalizar | Finalizada | Propietario |
+| Confirmada | Cancelar | Cancelada | Inquilino |
+
+> Cada transición genera una notificación al inquilino.
+
+## 13. Flujo de publicación de propiedad
+
+```mermaid
+sequenceDiagram
+    participant U as Usuario
+    participant F as Frontend
+    participant B as Backend
+    participant S as Storage (uploads)
+
+    U->>F: Completar formulario de propiedad
+    F->>B: POST /api/propiedades (datos)
+    B->>B: Validar datos (PropiedadValidator)
+    B->>B: Verificar permisos (Policy)
+    B->>B: Crear propiedad (estado: disponible)
+    B-->>F: 201 Created + propiedad_id
+
+    U->>F: Subir imágenes
+    F->>B: POST /api/propiedades/{id}/imagenes (multipart)
+    B->>B: Validar imagen (tipo, tamaño)
+    B->>S: Guardar archivo original
+    B->>S: Generar thumbnail, mediana, grande
+    B->>B: Crear registro en BD (imagen_propiedad)
+    B-->>F: 201 Created + URLs
+
+    U->>F: Marcar imagen principal
+    F->>B: PUT /api/propiedades/{id}/imagenes/{img}/principal
+    B->>B: Desmarcar anterior principal
+    B->>B: Marcar nueva principal
+    B-->>F: 200 OK
+
+    U->>F: Asociar servicios
+    F->>B: POST /api/propiedades/{id}/servicios
+    B->>B: Validar servicios
+    B->>B: Crear registros en pivote
+    B-->>F: 200 OK
+
+    F-->>U: Propiedad publicada
+```
+
+## 14. Flujo de notificaciones
+
+```mermaid
+flowchart TD
+    E[Evento del sistema] --> D{Tipo de evento}
+    D -->|Nueva reserva| N1[Notificar al propietario]
+    D -->|Reserva confirmada/rechazada/cancelada/finalizada| N2[Notificar al inquilino]
+    D -->|Nueva consulta| N3[Notificar al propietario]
+    D -->|Respuesta a consulta| N4[Notificar al interesado]
+    D -->|Nueva reseña| N5[Notificar al reseñado]
+    N1 --> S[NotificacionService::crear()]
+    N2 --> S
+    N3 --> S
+    N4 --> S
+    N5 --> S
+    S --> DB[(Tabla notificaciones)]
+    S --> C[Incrementar contador no leídas]
+    DB --> F[Frontend consulta notificaciones]
+    F --> U[Usuario ve notificación]
+```
+
+## 15. Pipeline de despliegue
+
+```mermaid
+flowchart LR
+    subgraph Frontend
+        A[git push dev] --> B[GitHub Actions / manual]
+        B --> C[npm run build]
+        C --> D[dist/ generado]
+        D --> E[Deploy a alwaysdata<br/>FTP / rsync]
+        E --> F[alquilerr.alwaysdata.net]
+    end
+
+    subgraph Backend
+        G[git push dev] --> H[Deploy manual FTP]
+        H --> I[Ejecutar migraciones SQL]
+        I --> J[Verificar .env de producción]
+        J --> K[alquiler.alwaysdata.net]
+    end
+
+    subgraph Verificación
+        F --> L[Smoke test: login, catálogo, detalle]
+        K --> L
+        L --> M{OK?}
+        M -->|Sí| N[Deploy completo]
+        M -->|No| O[Rollback / fix]
+    end
+```
+
+## 16. Diagrama de componentes del frontend (detalle)
+
+```mermaid
+flowchart TD
+    subgraph Pages
+        P1[Home]
+        P2[Catalogo]
+        P3[DetallePropiedad]
+        P4[Perfil]
+        P5[MisPropiedades]
+        P6[Admin*]
+        P7[Login / Registro]
+    end
+
+    subgraph Shared Components
+        C1[Header]
+        C2[Footer]
+        C3[PropertyCard]
+        C4[Modal]
+        C5[Toast]
+        C6[Skeleton]
+        C7[EmptyState]
+        C8[ErrorState]
+    end
+
+    subgraph Contexts
+        X1[AuthContext]
+        X2[ThemeContext]
+        X3[ToastContext]
+    end
+
+    subgraph Hooks
+        H1[useAuth]
+        H2[useApi]
+        H3[useTheme]
+        H4[useDebounce]
+    end
+
+    subgraph API Layer
+        A1[authApi]
+        A2[propiedadesApi]
+        A3[reservasApi]
+        A4[consultasApi]
+        A5[resenasApi]
+    end
+
+    P1 --> C1 & C2 & C3
+    P2 --> C1 & C2 & C3 & C6 & C7 & C8
+    P3 --> C1 & C2 & C4
+    X1 --> H1
+    H1 --> A1
+    H2 --> A2 & A3 & A4 & A5
+    X2 --> H3
+    X3 --> C5
+```
