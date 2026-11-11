@@ -30,6 +30,7 @@ Repositorio de documentación del proyecto **AlquilER**, un sistema de alquiler 
 
 ### Procesos y arquitectura
 - `ARQUITECTURA.md` — Arquitectura del sistema: capas, componentes, flujos, despliegue, seguridad, cache (Mermaid).
+- `WIREFRAMES.md` — Wireframes de baja fidelidad de las pantallas principales (ASCII + Mermaid).
 - `PROCESSES.md` — Mapa de procesos de negocio (Mermaid).
 - `ERD.md` — Diagrama entidad-relación (Mermaid + tablas).
 - `schema.sql` — Esquema de la base de datos (CREATE TABLE de 18 tablas).
