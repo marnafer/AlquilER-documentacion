@@ -30,6 +30,7 @@ Repositorio de documentación del proyecto **AlquilER**, un sistema de alquiler 
 - `REQUERIMIENTOS.md` — Requerimientos funcionales y no funcionales.
 - `REGLAS_NEGOCIO.md` — Reglas de negocio del sistema (78 reglas).
 - `RIESGOS.md` — Análisis de riesgos (técnicos, operacionales, seguridad, negocio).
+- `AUDITORIA_SEGURIDAD.md` — Auditoría de seguridad (OWASP Top 10, vulnerabilidades, recomendaciones).
 - `BACKLOG.md` — Backlog priorizado de tareas, bugs, deuda técnica y mejoras.
 - `SPRINTS.md` — Planificación de sprints (S0-S3 completados con datos reales + S4-S8 planificados).
 
