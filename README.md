@@ -27,6 +27,7 @@ Repositorio de documentación del proyecto **AlquilER**, un sistema de alquiler 
 - `REQUERIMIENTOS.md` — Requerimientos funcionales y no funcionales.
 - `REGLAS_NEGOCIO.md` — Reglas de negocio del sistema (78 reglas).
 - `RIESGOS.md` — Análisis de riesgos (técnicos, operacionales, seguridad, negocio).
+- `BACKLOG.md` — Backlog priorizado de tareas, bugs, deuda técnica y mejoras.
 
 ### Procesos y arquitectura
 - `ARQUITECTURA.md` — Arquitectura del sistema: capas, componentes, flujos, despliegue, seguridad, cache (Mermaid).

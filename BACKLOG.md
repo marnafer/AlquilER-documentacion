@@ -1,0 +1,157 @@
+# Backlog — AlquilER
+
+> Backlog priorizado de tareas, mejoras y deuda técnica del proyecto AlquilER.
+> Formato: `[ID] Título — Descripción — Prioridad — Estado`
+
+---
+
+## 1. Leyenda
+
+| Símbolo | Significado |
+|---|---|
+| 🔴 | Crítico (bloquea producción) |
+| 🟠 | Alto (importante, próximo sprint) |
+| 🟡 | Medio (deseable) |
+| 🟢 | Bajo (nice to have) |
+| ✅ | Completado |
+| 🔄 | En progreso |
+| ⏳ | Pendiente |
+| 🐛 | Bug |
+| ✨ | Feature nueva |
+| 🔧 | Mejora / refactor |
+| 📋 | Documentación |
+
+---
+
+## 2. Funcionalidades pendientes
+
+### 2.1 Alta prioridad
+
+| ID | Tipo | Título | Descripción | Prioridad | Estado |
+|---|---|---|---|---|---|
+| BL-001 | ✨ | Configurar SMTP en producción | Sin SMTP, los emails de verificación y reset de contraseña no se envían. Configurar `MAIL_HOST`, `MAIL_PORT`, `MAIL_USERNAME`, `MAIL_PASSWORD` en `.env` de producción. | 🔴 | ⏳ |
+| BL-002 | ✨ | Configurar APP_ENV=production | Sin esto, las cookies no usan `Secure=true` ni `SameSite=None`, rompiendo la auth cross-origin. | 🔴 | ⏳ |
+| BL-003 | ✨ | Validación de complejidad de contraseña | Agregar validación en `UsuarioValidator`: mínimo 8 caracteres, 1 mayúscula, 1 número. | 🟠 | ⏳ |
+| BL-004 | ✨ | Política de privacidad | Implementar página de política de privacidad y consentimiento explícito en el registro. | 🟠 | ⏳ |
+| BL-005 | ✨ | Derecho al olvido | Endpoint para que el usuario solicite eliminación de su cuenta y datos. | 🟠 | ⏳ |
+| BL-006 | ✨ | Backups automáticos de BD | Configurar backups diarios en alwaysdata. | 🟠 | ⏳ |
+| BL-007 | ✨ | Monitoreo de uptime | Configurar UptimeRobot o similar para detectar caídas. | 🟠 | ⏳ |
+
+### 2.2 Media prioridad
+
+| ID | Tipo | Título | Descripción | Prioridad | Estado |
+|---|---|---|---|---|---|
+| BL-008 | ✨ | Internacionalización (i18n) | Soporte multi-idioma. Actualmente solo español. Externalizar textos. | 🟡 | ⏳ |
+| BL-009 | ✨ | Accesibilidad (a11y) | Cumplir WCAG 2.1 AA: ARIA labels, navegación por teclado, contraste. | 🟡 | ⏳ |
+| BL-010 | ✨ | Code splitting / lazy loading | Reducir bundle principal (~749KB) con `React.lazy()` y `Suspense`. | 🟡 | ⏳ |
+| BL-011 | ✨ | CI/CD con GitHub Actions | Automatizar tests y deploy. Actualmente deploy manual por FTP. | 🟡 | ⏳ |
+| BL-012 | ✨ | Rotación de logs | Extender rotación (5MB, 3 gen) a `emails.log`, `errores.log`, `debug.log`. | 🟡 | ⏳ |
+| BL-013 | ✨ | Feature flags | Sistema para habilitar/deshabilitar funcionalidades sin deploy. | 🟡 | ⏳ |
+| BL-014 | ✨ | Health check endpoint | `GET /api/health` que verifique BD, storage y servicios. | 🟡 | ⏳ |
+| BL-015 | ✨ | Alertas de errores críticos | Email o webhook cuando ocurre un error 500. | 🟡 | ⏳ |
+| BL-016 | ✨ | Almacenamiento externo (S3/Cloudinary) | Mover imágenes de `storage/uploads` a almacenamiento externo. | 🟡 | ⏳ |
+| BL-017 | ✨ | Moderación de reseñas | Opción de moderación previa antes de publicar reseñas. | 🟡 | ⏳ |
+
+### 2.3 Baja prioridad
+
+| ID | Tipo | Título | Descripción | Prioridad | Estado |
+|---|---|---|---|---|---|
+| BL-018 | ✨ | Animaciones de scroll reveal | Ya implementadas, verificar `prefers-reduced-motion`. | 🟢 | ✅ |
+| BL-019 | ✨ | SEO por página | Title, meta description, OG tags. Ya implementado parcialmente. | 🟢 | 🔄 |
+| BL-020 | ✨ | Carrusel de propiedades vistas recientemente | Mostrar en home las últimas vistas. | 🟢 | ⏳ |
+| BL-021 | ✨ | Procesamiento de imágenes (WebP) | Generar versión WebP además de JPG/PNG. | 🟢 | ⏳ |
+
+---
+
+## 3. Bugs conocidos
+
+| ID | Título | Descripción | Prioridad | Estado |
+|---|---|---|---|---|
+| BUG-001 | Mojibake en producción | Caracteres rotos por falta de charset. Fix: `AddDefaultCharset utf-8` en `.htaccess`. | 🟠 | ✅ |
+| BUG-002 | Emails silenciosos en producción | SMTP no configurado → emails descartados sin error. Fix: `MailService::enviar()` lanza excepción. | 🔴 | ✅ |
+| BUG-003 | Dark mode: secciones blancas | Body background no cambiaba en dark mode. Fix: `:root[data-theme="dark"] body`. | 🟠 | ✅ |
+| BUG-004 | SPA deep-link 404 | Rutas directas (ej: `/propiedad/1`) daban 404. Fix: `.htaccess` con fallback a `index.html`. | 🟠 | ✅ |
+| BUG-005 | Login bloqueado sin feedback | Si el email no está verificado, el login falla sin mensaje claro. | 🟡 | ⏳ |
+| BUG-006 | Rate limiting en NAT | Usuarios en redes compartidas pueden ser bloqueados. | 🟡 | ⏳ |
+
+---
+
+## 4. Deuda técnica
+
+| ID | Título | Descripción | Prioridad | Estado |
+|---|---|---|---|---|
+| DT-001 | Queries N+1 | Algunos listados no usan eager loading (`with()`). Revisar repositorios. | 🟡 | ⏳ |
+| DT-002 | Cobertura de tests | Tests unitarios < 70%. Agregar tests a servicios críticos. | 🟡 | ⏳ |
+| DT-003 | Validación de entrada inconsistente | Algunos controllers no validan antes de llamar al servicio. | 🟡 | ⏳ |
+| DT-004 | Manejo de errores inconsistente | Algunos endpoints devuelven 500 en lugar de 422/400. | 🟡 | ⏳ |
+| DT-005 | Sin documentación de API actualizada | OpenAPI spec puede estar desactualizada respecto al código. | 🟢 | ⏳ |
+| DT-006 | Dependencias desactualizadas | Ejecutar `npm audit` y `composer audit` periódicamente. | 🟢 | ⏳ |
+
+---
+
+## 5. Mejoras de UX/UI
+
+| ID | Título | Descripción | Prioridad | Estado |
+|---|---|---|---|---|
+| UX-001 | Skeletons en carga | Agregar skeletons en catálogo y detalle. | 🟡 | 🔄 |
+| UX-002 | Toast de éxito/error | Feedback visual consistente en todas las acciones. | 🟡 | 🔄 |
+| UX-003 | Empty states con acciones | Estados vacíos con botones de acción (ej: "Ir al catálogo"). | 🟢 | ⏳ |
+| UX-004 | Confirmación de acciones destructivas | Modal de confirmación antes de eliminar. | 🟢 | ⏳ |
+| UX-005 | Indicador de fuerza de contraseña | Mostrar barra de fuerza en registro. | 🟢 | ⏳ |
+| UX-006 | Paginación infinita (opcional) | Scroll infinito en catálogo como alternativa a paginación. | 🟢 | ⏳ |
+
+---
+
+## 6. Sprints sugeridos
+
+### Sprint 1: Producción estable (crítico)
+- BL-001: Configurar SMTP
+- BL-002: Configurar APP_ENV=production
+- BL-006: Backups automáticos
+- BL-007: Monitoreo de uptime
+
+### Sprint 2: Seguridad y compliance
+- BL-003: Validación de contraseña
+- BL-004: Política de privacidad
+- BL-005: Derecho al olvido
+- BUG-005: Login feedback
+- BUG-006: Rate limiting NAT
+
+### Sprint 3: Calidad y performance
+- BL-010: Code splitting
+- BL-011: CI/CD
+- BL-012: Rotación de logs
+- DT-001: Queries N+1
+- DT-002: Cobertura de tests
+- UX-001: Skeletons
+- UX-002: Toast
+
+### Sprint 4: Features avanzadas
+- BL-008: i18n
+- BL-009: a11y
+- BL-013: Feature flags
+- BL-014: Health check
+- BL-015: Alertas
+- BL-016: Almacenamiento externo
+- BL-017: Moderación de reseñas
+
+---
+
+## 7. Métricas de progreso
+
+| Categoría | Total | Completados | Pendientes |
+|---|---|---|---|
+| Funcionalidades | 21 | 1 | 20 |
+| Bugs | 6 | 4 | 2 |
+| Deuda técnica | 6 | 0 | 6 |
+| UX/UI | 6 | 0 | 6 |
+| **Total** | **39** | **5** | **34** |
+
+---
+
+## 8. Notas
+
+- El backlog se actualiza en cada sprint planning.
+- Los IDs son secuenciales y no se reutilizan.
+- Las prioridades pueden cambiar según feedback del cliente.
+- Los items completados se mantienen para historial.
