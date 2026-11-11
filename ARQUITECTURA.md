@@ -28,7 +28,7 @@ El backend sigue el patrón **Controller → Service → Repository → Model**:
 
 ```mermaid
 flowchart TD
-    R[Routes<br/>src/Routes/*.php] --> Mw[Middlewares<br/>Auth, CSRF, CORS, RateLimit]
+    R[Routes<br/>src/Routes/*.php] --> Mw[Middlewares<br/>CookieCsrf, RateLimit, Debug]
     Mw --> C[Controllers<br/>src/Controllers/Api/*.php]
     C --> V[Validators<br/>src/Validators/*.php]
     C --> S[Services<br/>src/Services/*.php]
@@ -44,7 +44,7 @@ flowchart TD
 | Capa | Responsabilidad |
 |---|---|
 | **Routes** | Mapeo de URLs a controladores y middlewares. |
-| **Middlewares** | Autenticación (JWT), CSRF (Origin), CORS, rate limiting, logging. |
+| **Middlewares** | CSRF (Origin/cookies), rate limiting, debug (solo dev). La autenticación JWT la maneja `Authenticator` en `src/Security/`. |
 | **Controllers** | Recibir request, validar entrada, llamar al servicio, formatear respuesta HTTP. |
 | **Validators** | Validación de campos (formato, tipo, rangos, obligatoriedad). |
 | **Services** | Lógica de negocio, orquestación, reglas de dominio. |
@@ -236,15 +236,13 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    Req[Request HTTP] --> CORS{CORS<br/>Origin permitido?}
-    CORS -->|No| R1[403 Forbidden]
-    CORS -->|Sí| RL{Rate Limit<br/>dentro del límite?}
+    Req[Request HTTP] --> RL{Rate Limit<br/>dentro del límite?}
     RL -->|No| R2[429 Too Many Requests]
-    RL -->|Sí| Auth{Autenticado?<br/>JWT válido?}
-    Auth -->|No y ruta protegida| R3[401 Unauthorized]
-    Auth -->|Sí o ruta pública| CSRF{CSRF<br/>Origin válido?}
+    RL -->|Sí| CSRF{CSRF<br/>Origin/Cookie válido?}
     CSRF -->|No y método write| R4[403 Forbidden]
-    CSRF -->|Sí| Ctrl[Controller]
+    CSRF -->|Sí| Auth{Autenticado?<br/>JWT válido?}
+    Auth -->|No y ruta protegida| R3[401 Unauthorized]
+    Auth -->|Sí o ruta pública| Ctrl[Controller]
     Ctrl --> Policy{Policy<br/>Autorizado?}
     Policy -->|No| R5[403 Forbidden]
     Policy -->|Sí| Svc[Service → Repository → DB]

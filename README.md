@@ -36,7 +36,7 @@ Repositorio de documentación del proyecto **AlquilER**, un sistema de alquiler 
 - `WIREFRAMES.md` — Wireframes de baja fidelidad de las pantallas principales (ASCII + Mermaid).
 - `PROCESSES.md` — Mapa de procesos de negocio (Mermaid).
 - `ERD.md` — Diagrama entidad-relación (Mermaid + tablas).
-- `schema.sql` — Esquema de la base de datos (CREATE TABLE de 18 tablas).
+- `schema.sql` - Esquema de la base de datos (CREATE TABLE de 17 tablas + 1 vista).
 
 ### API y contratos
 - `API-CONTRACT.md` — Contrato de la API (endpoints, request/response).
