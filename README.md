@@ -20,6 +20,8 @@ Repositorio de documentación del proyecto **AlquilER**, un sistema de alquiler 
 - `DEPLOY.md` — Guía de despliegue a producción.
 - `ENV.md` — Referencia de variables de entorno.
 - `TROUBLESHOOTING.md` — Problemas comunes y soluciones.
+- `CHANGELOG.md` — Historial de cambios por versión.
+- `LICENSE` — Licencia MIT.
 
 ### API y contratos
 - `API-CONTRACT.md` — Contrato de la API (endpoints, request/response).
