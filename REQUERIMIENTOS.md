@@ -35,6 +35,8 @@
 | RF-02.7 | El sistema debe mostrar la disponibilidad de la propiedad. | Alta |
 | RF-02.8 | El propietario debe poder ver sus propiedades publicadas. | Alta |
 | RF-02.9 | El sistema debe soportar categorías, provincias, localidades y servicios como datos maestros. | Alta |
+| RF-02.10 | El sistema debe procesar imágenes de propiedades: redimensionar, comprimir y generar múltiples tamaños (thumbnail, mediana, grande). | Media |
+| RF-02.11 | El sistema debe soportar formatos de imagen: JPG, PNG, WebP. | Media |
 
 ### RF-03: Búsqueda y catálogo
 
@@ -162,6 +164,11 @@
 ### RNF-07: Disponibilidad
 - El sistema debe estar disponible 24/7 en producción.
 - Backups de base de datos recomendados.
+
+### RNF-08: Rate limiting
+- El backend debe limitar las solicitudes por IP: 120 GET/min, 30 write/min, 5 login/min, 3 recuperación/min.
+- Las respuestas 429 deben incluir el header `Retry-After`.
+- El rate limiting debe ser por IP y por endpoint.
 
 ---
 
