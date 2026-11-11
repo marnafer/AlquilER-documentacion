@@ -257,10 +257,72 @@
 
 ---
 
-## 8. Notas
+## 8. Plan B (si algo falla durante la demo)
+
+| Problema | Solución |
+|---|---|
+| La app no carga | Verificar https://alquilerr.alwaysdata.net. Si está caída, mostrar el dashboard (https://github.com/JulianMP1997/alquiler-dashboard) o capturas de `capturas/` |
+| Login falla | Verificar credenciales (prop@gmail.com / Test1234!). Probar con otro navegador. |
+| No se envían emails | Es esperado en producción si SMTP no está configurado. Mostrar que el código maneja el error correctamente. |
+| Imagen no carga | Verificar conexión. Las imágenes se sirven desde `storage/uploads/`. |
+| Error 429 (rate limit) | Esperar 1 minuto. El rate limiting es por IP. |
+| La reserva no se crea | Verificar que el usuario esté logueado y que la propiedad esté disponible. |
+| El admin no puede acceder | Verificar que el usuario tenga rol_id=2 (admin). |
+
+---
+
+## 9. Mostrar métricas del proyecto (opcional, 2 min)
+
+Si hay tiempo, mostrar el dashboard del proyecto:
+
+1. Abrir https://github.com/JulianMP1997/alquiler-dashboard
+2. Mostrar los 5 KPIs:
+   - Alcance MVP: 100% (14/14 módulos)
+   - Cobertura backend: 97,83% (9.714/9.929 líneas)
+   - Velocidad de integración: 2,9 PRs/semana
+   - Defectos abiertos: 0
+   - Cobertura E2E: 50% (4/8 flujos)
+3. Mostrar la evolución de commits (762 en 74 días)
+4. Mostrar los 4 sprints (S0-S3)
+5. Mostrar el equipo (2 devs, 50,5/49,5%)
+
+---
+
+## 10. Mostrar código y arquitectura (opcional, 2 min)
+
+Si hay tiempo, mostrar la arquitectura:
+
+1. Abrir el repo de documentación: https://github.com/marnafer/AlquilER-documentacion
+2. Mostrar `ARQUITECTURA.md` con los diagramas de capas
+3. Mostrar `ERD.md` con el diagrama entidad-relación (17 tablas + 1 vista)
+4. Mostrar `WIREFRAMES.md` con los 39 wireframes
+5. Mostrar la estructura de carpetas del backend (`src/`)
+6. Mostrar un controlador y un servicio como ejemplo
+
+---
+
+## 11. Cambiar de cuenta durante la demo
+
+Durante la demo necesitás cambiar entre usuarios:
+
+| Paso | Acción |
+|---|---|
+| 1 | Login como usuario normal (para reservar, consultar, favoritos) |
+| 2 | Logout |
+| 3 | Login como propietario (para confirmar/rechazar/finalizar reservas) |
+| 4 | Logout |
+| 5 | Login como admin (prop@gmail.com) para el panel admin |
+
+> **Tip**: Tené las credenciales anotadas para cambiar rápidamente.
+
+---
+
+## 12. Notas
 
 - El demo debe durar aproximadamente 10 minutos.
 - Tener las credenciales listas antes de empezar.
 - Verificar que la app esté online antes de la demo.
 - El dashboard (https://github.com/JulianMP1997/alquiler-dashboard) tiene un script de presentación de 5 minutos.
-- La documentación completa está en el repo de docs (35 archivos).
+- La documentación completa está en el repo de docs (36 archivos).
+- Si algo falla, usar el Plan B (sección 8).
+- Si hay tiempo extra, mostrar métricas (sección 9) o código (sección 10).
