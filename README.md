@@ -9,7 +9,7 @@ Repositorio de documentación del proyecto **AlquilER**, un sistema de alquiler 
 | Backend (PHP) | [marnafer/AlquilER-backend](https://github.com/marnafer/AlquilER-backend) |
 | Frontend Web (React + Vite) | [marnafer/AlquilER-frontend-web](https://github.com/marnafer/AlquilER-frontend-web) |
 | Frontend Mobile | [marnafer/AlquilER-frontend-mobile](https://github.com/marnafer/AlquilER-frontend-mobile) |
-| Documentación | [JulianMP1997/AlquilER-documentacion](https://github.com/JulianMP1997/AlquilER-documentacion) |
+| Documentación | [marnafer/AlquilER-documentacion](https://github.com/marnafer/AlquilER-documentacion) |
 
 ## Contenido
 
@@ -20,6 +20,7 @@ Repositorio de documentación del proyecto **AlquilER**, un sistema de alquiler 
 - `DEPLOY.md` — Guía de despliegue a producción.
 - `ENV.md` — Referencia de variables de entorno.
 - `TROUBLESHOOTING.md` — Problemas comunes y soluciones.
+- `TESTING.md` — Guía de testing (unitarios, integración, E2E).
 - `CHANGELOG.md` — Historial de cambios por versión.
 - `LICENSE` — Licencia MIT.
 
