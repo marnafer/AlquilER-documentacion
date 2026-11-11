@@ -444,6 +444,39 @@ Muestra métricas rápidas:
 
 ---
 
+## 12b. Otras páginas
+
+### Servicios (/servicios)
+1. Ver lista de servicios disponibles (WiFi, parking, pileta, etc.)
+2. Click en un servicio para ver propiedades que lo incluyen
+
+### Términos y condiciones (/terminos)
+- Leer los términos de uso de la plataforma
+
+### Política de privacidad (/privacidad)
+- Leer la política de privacidad y protección de datos
+
+### Perfil público (/usuarios/:id)
+- Ver el perfil público de otro usuario
+- Ver sus propiedades publicadas y calificación
+
+### Dashboard personal (/dashboard)
+- Resumen de tus propiedades, reservas, favoritos, consultas y reseñas
+- Reservas recientes
+- Pendientes de aprobar (si sos propietario)
+- Notificaciones recientes
+
+### Detalle de reserva (/reservas/:id)
+- Ver información completa de una reserva
+- Fechas, estado, propiedad, inquilino/propietario
+- Acciones según el estado (confirmar, rechazar, cancelar, finalizar)
+
+### Página no encontrada (404)
+- Se muestra cuando la URL no existe
+- Botón para volver al inicio
+
+---
+
 ## 13. Preguntas frecuentes (FAQ)
 
 ### ¿Cómo publico una propiedad?
