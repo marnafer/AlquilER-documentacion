@@ -1239,6 +1239,44 @@ flowchart LR
 
 ---
 
+## 39. Dashboard personal (/dashboard)
+
+```text
+┌──────────────────────────────────────────────────────────────┐
+│  [Logo] AlquilER          [🔔 3] [👤 Mi perfil]             │
+├──────────────────────────────────────────────────────────────┤
+│                                                              │
+│  Hola, Juan 👋                                               │
+│                                                              │
+│  ┌────┐ ┌────┐ ┌────┐ ┌────┐ ┌────┐                        │
+│  │ 3  │ │ 5  │ │ 12 │ │ 4  │ │ 2  │                        │
+│  │Props│ │Res.│ │Fav.│ │Cons│ │Rese│                        │
+│  └────┘ └────┘ └────┘ └────┘ └────┘                        │
+│                                                              │
+│  ─── Reservas recientes ───                                  │
+│  ┌──────────────────────────────────────────────────────┐    │
+│  │  🏠 Depto céntrico  │ 01/05→31/05 │ ✅ Confirmada   │    │
+│  │  🏠 Casa pileta     │ 15/06→20/06 │ ⏳ Pendiente     │    │
+│  └──────────────────────────────────────────────────────┘    │
+│                                                              │
+│  ─── Pendientes de aprobar (si es propietario) ───           │
+│  ┌──────────────────────────────────────────────────────┐    │
+│  │  🏠 Depto céntrico │ Pedro López │ ⏳ Pendiente      │    │
+│  │  [Confirmar] [Rechazar]                              │    │
+│  └──────────────────────────────────────────────────────┘    │
+│                                                              │
+│  ─── Notificaciones recientes ───                            │
+│  ┌──────────────────────────────────────────────────────┐    │
+│  │  📌 Nueva reserva en tu propiedad                    │    │
+│  │  📌 Tu reserva fue confirmada                        │    │
+│  └──────────────────────────────────────────────────────┘    │
+│                                                              │
+│  [Ir a mis propiedades] [Ir a mis reservas]                  │
+└──────────────────────────────────────────────────────────────┘
+```
+
+---
+
 ## Notas
 
 - Los wireframes son de **baja fidelidad** (estructura, no diseño visual).
