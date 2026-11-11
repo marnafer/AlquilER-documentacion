@@ -17,12 +17,15 @@ Repositorio de documentación del proyecto **AlquilER**, un sistema de alquiler 
 - `README.md` — Índice con links a todos los repos del proyecto.
 - `README-BACKEND.md` — Guía de instalación y ejecución del backend.
 - `README-FRONTEND.md` — Guía de desarrollo del frontend.
-- `REQUERIMIENTOS.md` — Requerimientos funcionales y no funcionales.
 - `DEPLOY.md` — Guía de despliegue a producción.
 - `ENV.md` — Referencia de variables de entorno.
 - `TROUBLESHOOTING.md` — Problemas comunes y soluciones.
 - `CHANGELOG.md` — Historial de cambios por versión.
 - `LICENSE` — Licencia MIT.
+
+### Requerimientos y reglas
+- `REQUERIMIENTOS.md` — Requerimientos funcionales y no funcionales.
+- `REGLAS_NEGOCIO.md` — Reglas de negocio del sistema (78 reglas).
 
 ### Procesos y arquitectura
 - `PROCESSES.md` — Mapa de procesos de negocio (Mermaid).
