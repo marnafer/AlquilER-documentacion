@@ -29,6 +29,7 @@ Repositorio de documentación del proyecto **AlquilER**, un sistema de alquiler 
 - `RIESGOS.md` — Análisis de riesgos (técnicos, operacionales, seguridad, negocio).
 
 ### Procesos y arquitectura
+- `ARQUITECTURA.md` — Arquitectura del sistema: capas, componentes, flujos, despliegue, seguridad, cache (Mermaid).
 - `PROCESSES.md` — Mapa de procesos de negocio (Mermaid).
 - `ERD.md` — Diagrama entidad-relación (Mermaid + tablas).
 - `schema.sql` — Esquema de la base de datos (CREATE TABLE de 18 tablas).
