@@ -28,6 +28,7 @@ Repositorio de documentación del proyecto **AlquilER**, un sistema de alquiler 
 - `REGLAS_NEGOCIO.md` — Reglas de negocio del sistema (78 reglas).
 - `RIESGOS.md` — Análisis de riesgos (técnicos, operacionales, seguridad, negocio).
 - `BACKLOG.md` — Backlog priorizado de tareas, bugs, deuda técnica y mejoras.
+- `SPRINTS.md` — Planificación de sprints (5 sprints, 10 semanas).
 
 ### Procesos y arquitectura
 - `ARQUITECTURA.md` — Arquitectura del sistema: capas, componentes, flujos, despliegue, seguridad, cache (Mermaid).
