@@ -23,14 +23,15 @@ Repositorio de documentación del proyecto **AlquilER**, un sistema de alquiler 
 - `CHANGELOG.md` — Historial de cambios por versión.
 - `LICENSE` — Licencia MIT.
 
+### Procesos y arquitectura
+- `PROCESSES.md` — Mapa de procesos de negocio (Mermaid).
+- `ERD.md` — Diagrama entidad-relación (Mermaid + tablas).
+- `schema.sql` — Esquema de la base de datos (CREATE TABLE de 18 tablas).
+
 ### API y contratos
 - `API-CONTRACT.md` — Contrato de la API (endpoints, request/response).
 - `openapi.json` — Especificación OpenAPI/Swagger (513KB).
 - `EJEMPLO_CLIENTE.js` — Ejemplo de cliente para consumir la API.
-
-### Base de datos
-- `schema.sql` — Esquema de la base de datos (CREATE TABLE de 18 tablas).
-- `ERD.md` — Diagrama entidad-relación (Mermaid + tablas de relaciones).
 
 ### Proyecto
 - `project_brief_y_agenda_alquiler.md` — Brief del proyecto y agenda.
