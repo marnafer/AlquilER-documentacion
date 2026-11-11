@@ -26,6 +26,7 @@ Repositorio de documentación del proyecto **AlquilER**, un sistema de alquiler 
 ### Requerimientos y reglas
 - `REQUERIMIENTOS.md` — Requerimientos funcionales y no funcionales.
 - `REGLAS_NEGOCIO.md` — Reglas de negocio del sistema (78 reglas).
+- `RIESGOS.md` — Análisis de riesgos (técnicos, operacionales, seguridad, negocio).
 
 ### Procesos y arquitectura
 - `PROCESSES.md` — Mapa de procesos de negocio (Mermaid).
