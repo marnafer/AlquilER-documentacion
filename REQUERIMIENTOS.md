@@ -170,6 +170,57 @@
 - Las respuestas 429 deben incluir el header `Retry-After`.
 - El rate limiting debe ser por IP y por endpoint.
 
+### RNF-09: Accesibilidad (a11y)
+- La interfaz debe cumplir con WCAG 2.1 nivel AA.
+- Todos los elementos interactivos deben ser accesibles por teclado (tab, enter, escape).
+- Las imágenes deben tener texto alternativo (`alt`).
+- El contraste de color debe ser suficiente (ratio mínimo 4.5:1 para texto normal).
+- El sistema debe soportar lectores de pantalla (ARIA labels, roles, landmarks).
+- Los formularios deben tener labels asociados a inputs.
+- El sistema debe respetar `prefers-reduced-motion` para animaciones.
+
+### RNF-10: Internacionalización (i18n)
+- El sistema debe soportar múltiples idiomas (actualmente solo español).
+- Los textos de la interfaz deben estar externalizados (no hardcodeados).
+- El sistema debe detectar el idioma del navegador por defecto.
+- El usuario debe poder cambiar de idioma desde la configuración de perfil.
+
+### RNF-11: Observabilidad y monitoreo
+- El backend debe registrar logs estructurados (error, warning, info, debug).
+- El sistema debe registrar métricas de performance (tiempo de respuesta por endpoint).
+- El sistema debe generar alertas ante errores críticos (email o webhook).
+- El sistema debe exponer un endpoint de health check (`/api/health`).
+- Los logs deben incluir: timestamp, nivel, mensaje, contexto (IP, user_id, request_id).
+
+### RNF-12: Confiabilidad y recuperación
+- El sistema debe recuperarse automáticamente de fallos transitorios (reintentos con backoff).
+- El tiempo de recuperación (RTO) debe ser menor a 1 hora.
+- El punto de recuperación (RPO) debe ser menor a 24 horas (backups diarios).
+- El sistema debe manejar graciosamente la pérdida de conexión (mensajes de error claros, reintentos).
+- Las operaciones críticas (reservas, publicación) deben ser idempotentes o transaccionales.
+
+### RNF-13: Privacidad y protección de datos
+- El sistema debe cumplir con la Ley de Protección de Datos Personales (Argentina) y/o GDPR.
+- El sistema debe contar con una política de privacidad accesible.
+- El usuario debe poder solicitar la eliminación de su cuenta y datos (derecho al olvido).
+- El sistema debe obtener consentimiento explícito para el tratamiento de datos personales.
+- Los datos sensibles (contraseñas, tokens) no deben almacenarse en texto plano ni en logs.
+- El sistema debe anonimizar o eliminar datos de usuarios eliminados (soft delete + purga).
+
+### RNF-14: Testabilidad
+- El código debe tener cobertura de tests unitarios ≥ 70%.
+- Los flujos críticos (login, reserva, publicación de propiedad) deben tener tests E2E (Playwright).
+- El código debe ser testeable (inyección de dependencias, interfaces, mocks).
+- El CI/CD debe ejecutar los tests automáticamente en cada PR.
+- Los tests deben ser determinísticos (sin dependencia de datos externos o timing).
+
+### RNF-15: Portabilidad y configurabilidad
+- El sistema debe poder desplegarse en cualquier servidor con PHP 8.2+ y MySQL 8.0+.
+- Toda la configuración dependiente del entorno debe estar en variables de entorno (`.env`).
+- El sistema debe soportar feature flags para habilitar/deshabilitar funcionalidades.
+- El frontend debe ser desplegable como sitio estático (CDN, hosting compartido).
+- El backend debe ser desplegable en Apache o Nginx sin cambios de código.
+
 ---
 
 ## 3. Actores del sistema
