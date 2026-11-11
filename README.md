@@ -17,10 +17,10 @@ Repositorio de documentación del proyecto **AlquilER**, un sistema de alquiler 
 - `README.md` — Índice con links a todos los repos del proyecto.
 - `README-BACKEND.md` — Guía de instalación y ejecución del backend.
 - `README-FRONTEND.md` — Guía de desarrollo del frontend.
+- `REQUERIMIENTOS.md` — Requerimientos funcionales y no funcionales.
 - `DEPLOY.md` — Guía de despliegue a producción.
 - `ENV.md` — Referencia de variables de entorno.
 - `TROUBLESHOOTING.md` — Problemas comunes y soluciones.
-- `TESTING.md` — Guía de testing (PHPUnit + Playwright).
 - `CHANGELOG.md` — Historial de cambios por versión.
 - `LICENSE` — Licencia MIT.
 
