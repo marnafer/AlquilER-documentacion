@@ -18,6 +18,7 @@ Repositorio de documentación del proyecto **AlquilER**, un sistema de alquiler 
 - `README-BACKEND.md` — Guía de instalación y ejecución del backend.
 - `README-FRONTEND.md` — Guía de desarrollo del frontend.
 - `DEPLOY.md` — Guía de despliegue a producción.
+- `CI_CD.md` — Configuración de CI/CD con GitHub Actions.
 - `ENV.md` — Referencia de variables de entorno.
 - `TROUBLESHOOTING.md` — Problemas comunes y soluciones.
 - `TESTING.md` — Guía de testing (unitarios, integración, E2E).

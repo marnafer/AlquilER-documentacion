@@ -44,7 +44,7 @@
 | BL-008 | ✨ | Internacionalización (i18n) | Soporte multi-idioma. Actualmente solo español. Externalizar textos. | 🟡 | ⏳ |
 | BL-009 | ✨ | Accesibilidad (a11y) | Cumplir WCAG 2.1 AA: ARIA labels, navegación por teclado, contraste. | 🟡 | ⏳ |
 | BL-010 | ✨ | Code splitting / lazy loading | Reducir bundle principal (~749KB) con `React.lazy()` y `Suspense`. | 🟡 | ⏳ |
-| BL-011 | ✨ | CI/CD con GitHub Actions | Automatizar tests y deploy. Actualmente deploy manual por FTP. | 🟡 | ⏳ |
+| BL-011 | ✨ | CI/CD con GitHub Actions | Automatizar tests y deploy. Actualmente deploy manual por FTP. | 🟡 | 🔄 |
 | BL-012 | ✨ | Rotación de logs | Extender rotación (5MB, 3 gen) a `emails.log`, `errores.log`, `debug.log`. | 🟡 | ⏳ |
 | BL-013 | ✨ | Feature flags | Sistema para habilitar/deshabilitar funcionalidades sin deploy. | 🟡 | ⏳ |
 | BL-014 | ✨ | Health check endpoint | `GET /api/health` que verifique BD, storage y servicios. | 🟡 | ⏳ |
