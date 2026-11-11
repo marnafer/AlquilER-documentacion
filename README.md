@@ -19,6 +19,7 @@ Repositorio de documentación del proyecto **AlquilER**, un sistema de alquiler 
 - `README-FRONTEND.md` — Guía de desarrollo del frontend.
 - `MANUAL_DEV.md` — Manual del desarrollador (instalación, desarrollo, testing, deploy).
 - `MANUAL_USUARIO.md` — Manual del usuario final (guía de uso de la plataforma).
+- `DEMO.md` — Guía de demostración (script, flujo, credenciales, checklist, FAQ).
 - `DEPLOY.md` — Guía de despliegue a producción.
 - `CI_CD.md` — Configuración de CI/CD con GitHub Actions.
 - `ENV.md` — Referencia de variables de entorno.
