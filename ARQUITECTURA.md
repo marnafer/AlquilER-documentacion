@@ -276,7 +276,6 @@ stateDiagram-v2
     Pendiente --> Rechazada: Propietario rechaza
     Pendiente --> Cancelada: Inquilino cancela
     Confirmada --> Finalizada: Propietario finaliza
-    Confirmada --> Cancelada: Inquilino cancela
     Rechazada --> [*]
     Cancelada --> [*]
     Finalizada --> [*]
@@ -290,7 +289,6 @@ stateDiagram-v2
 | Pendiente | Rechazar | Rechazada | Propietario |
 | Pendiente | Cancelar | Cancelada | Inquilino |
 | Confirmada | Finalizar | Finalizada | Propietario |
-| Confirmada | Cancelar | Cancelada | Inquilino |
 
 > Cada transición genera una notificación al inquilino.
 
@@ -473,27 +471,27 @@ flowchart LR
 flowchart TD
     U[Usuario sube imagen] --> V{Validación<br/>tipo, tamaño, dimensiones}
     V -->|Error| E[Rechazar con mensaje]
-    V -->|OK| O[Guardar original<br/>storage/uploads/original/]
-    O --> R1[Generar thumbnail<br/>150x150, crop center]
-    O --> R2[Generar mediana<br/>400x300, fit]
-    O --> R3[Generar grande<br/>1200x900, fit]
-    R1 --> S1[storage/uploads/thumb/]
-    R2 --> S2[storage/uploads/medium/]
-    R3 --> S3[storage/uploads/large/]
+    V -->|OK| O[Archivo temporal<br/>sys_get_temp_dir()]
+    O --> P[Procesar<br/>ProcesadorImagenes]
+    P --> R1[Validar dimensiones<br/>max 12000x12000, max 40M px]
+    R1 --> R2[Redimensionar<br/>max 1920px, proporcional, sin ampliar]
+    R2 --> R3[Convertir a JPEG<br/>calidad 80, fondo blanco]
+    R3 --> S1[storage/uploads/<br/>archivo final .jpg]
     S1 --> DB[Guardar registro en BD<br/>imagen_propiedad]
-    S2 --> DB
-    S3 --> DB
     DB --> CDN[Servir vía URL pública]
 ```
 
-### Formatos y tamaños soportados
+### Formatos y procesamiento
 
-| Tamaño | Dimensiones | Uso |
-|---|---|---|
-| Thumbnail | 150×150 | Listados, carruseles |
-| Mediana | 400×300 | Cards de catálogo |
-| Grande | 1200×900 | Detalle de propiedad |
-| Original | Sin modificar | Backup, descarga |
+| Aspecto | Detalle |
+|---|---|
+| Formatos de entrada | JPEG, PNG |
+| Formato de salida | JPEG (calidad 80) |
+| Dimensión máxima de entrada | 12000×12000 px, max 40M píxeles |
+| Dimensión máxima de salida | 1920px (lado mayor, proporcional) |
+| Ampliación | No (solo reduce si es mayor) |
+| Transparencia (PNG) | Fondo blanco en JPEG |
+| Validación | getimagesize, mime type, dimensiones |
 
 ## 19. Flujo de manejo de errores
 

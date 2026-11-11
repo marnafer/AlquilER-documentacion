@@ -35,8 +35,8 @@
 | RF-02.7 | El sistema debe mostrar la disponibilidad de la propiedad. | Alta |
 | RF-02.8 | El propietario debe poder ver sus propiedades publicadas. | Alta |
 | RF-02.9 | El sistema debe soportar categorías, provincias, localidades y servicios como datos maestros. | Alta |
-| RF-02.10 | El sistema debe procesar imágenes de propiedades: redimensionar, comprimir y generar múltiples tamaños (thumbnail, mediana, grande). | Media |
-| RF-02.11 | El sistema debe soportar formatos de imagen: JPG, PNG, WebP. | Media |
+| RF-02.10 | El sistema debe procesar imágenes de propiedades: redimensionar (max 1920px, proporcional, sin ampliar) y comprimir a JPEG (calidad 80). | Media |
+| RF-02.11 | El sistema debe soportar formatos de imagen de entrada: JPG y PNG. | Media |
 
 ### RF-03: Búsqueda y catálogo
 
@@ -138,7 +138,7 @@
 - El backend valida el Origin en operaciones que modifican datos (CSRF).
 - Rate limiting: 120 GET/min, 30 write/min, 5 login/min.
 - Los emails de verificación tienen token con expiración (60 min).
-- Los tokens de reset de contraseña tienen expiración (30 min).
+- Los tokens de reset de contraseña tienen expiración (60 min).
 
 ### RNF-03: Usabilidad
 - La interfaz debe ser intuitiva y responsive.
@@ -166,9 +166,21 @@
 - Backups de base de datos recomendados.
 
 ### RNF-08: Rate limiting
-- El backend debe limitar las solicitudes por IP: 120 GET/min, 30 write/min, 5 login/min, 3 recuperación/min.
+- El backend debe limitar las solicitudes por IP y por endpoint:
+  - GET: 120/min
+  - Write (POST/PUT/PATCH/DELETE): 30/min
+  - Login: 5/min
+  - Register: 5/10min
+  - Recuperar contraseña: 3/5min
+  - Restablecer contraseña: 5/5min
+  - Refresh token: 10/min
+  - Contacto: 10/min
+  - Crear consulta: 10/min
+  - Enviar mensaje: 20/min
+  - Admin: 30/min
+  - Default: 60/min
 - Las respuestas 429 deben incluir el header `Retry-After`.
-- El rate limiting debe ser por IP y por endpoint.
+- El rate limiting debe ser por IP y por endpoint (regla específica por ruta).
 
 ### RNF-09: Accesibilidad (a11y)
 - La interfaz debe cumplir con WCAG 2.1 nivel AA.

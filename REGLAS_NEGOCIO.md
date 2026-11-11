@@ -11,7 +11,7 @@
 | RN-03 | Solo los administradores pueden acceder al panel de administración (`/admin/*`). |
 | RN-04 | Un usuario debe verificar su email antes de poder iniciar sesión. |
 | RN-05 | El token de verificación de email es válido por **60 minutos**. |
-| RN-06 | El token de recuperación de contraseña es válido por **30 minutos**. |
+| RN-06 | El token de recuperación de contraseña es válido por **60 minutos**. |
 | RN-07 | Un usuario solo puede tener **un refresh token activo** a la vez. Al iniciar sesión, se eliminan los refresh tokens anteriores. |
 | RN-08 | El access token expira en **15 minutos**. El refresh token expira en **15 días**. |
 | RN-09 | Al cerrar sesión, se invalida el refresh token. |
@@ -47,14 +47,14 @@
 | Regla | Descripción |
 |---|---|
 | RN-26 | Solo usuarios autenticados pueden reservar propiedades. |
-| RN-27 | Los estados de reserva son: `pendiente` → `confirmada` / `rechazada` / `cancelada` → `finalizada`. |
+| RN-27 | Los estados de reserva son: `pendiente` → `confirmada` / `rechazada` / `cancelada`. Solo `confirmada` → `finalizada`. |
 | RN-28 | Solo el **propietario** de la propiedad puede confirmar o rechazar una reserva. |
 | RN-29 | Solo el **inquilino** (quien hizo la reserva) puede cancelarla. |
 | RN-30 | Solo el **propietario** puede finalizar una reserva. |
 | RN-31 | Al confirmar/rechazar/cancelar/finalizar, se envía una notificación al inquilino. |
 | RN-32 | Al crear una reserva, se envía una notificación al propietario. |
 | RN-33 | Las reservas eliminadas usan soft delete. Solo administradores pueden restaurarlas. |
-| RN-34 | Un usuario puede reservar una propiedad propia (para testing). |
+| RN-34 | Un usuario **no puede** reservar una propiedad propia (validado por `ReservaPolicy::puedeCrear`). |
 
 ## 5. Consultas
 
@@ -122,7 +122,7 @@
 | RN-64 | Los tokens JWT tienen expiración (15 min access, 15 días refresh). |
 | RN-65 | Las credenciales se almacenan en cookies HttpOnly (no en localStorage). |
 | RN-66 | El backend valida el `Origin` en operaciones que modifican datos (CSRF). |
-| RN-67 | Rate limiting: 120 GET/min, 30 write/min, 5 login/min, 3 recuperación/min. |
+| RN-67 | Rate limiting por IP y endpoint: GET 120/min, write 30/min, login 5/min, register 5/10min, recuperar 3/5min, restablecer 5/5min, refresh 10/min, contacto 10/min, crear consulta 10/min, enviar mensaje 20/min, admin 30/min, default 60/min. |
 | RN-68 | Los emails de verificación tienen token con expiración de 60 minutos. |
 | RN-69 | Los tokens de reset de contraseña tienen expiración de 30 minutos. |
 | RN-70 | CORS: solo orígenes configurados en `CORS_ALLOWED_ORIGINS` pueden acceder a la API. |
