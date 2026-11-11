@@ -377,15 +377,19 @@ flowchart TD
 
 ---
 
-## 10. Papelera (registros eliminados)
+## 10. Papelera (toggle dentro de cada página admin)
+
+> Nota: La papelera NO es una página separada. Es un toggle (botón "Papelera"/"Ver activas") dentro de cada página de gestión admin (Usuarios, Propiedades, Reservas, Consultas, Reseñas, Categorías, etc.).
 
 ```text
 ┌──────────────────────────────────────────────────────────────┐
-│  Panel Admin > Papelera                                      │
+│  Panel Admin > Usuarios                                      │
 ├──────────────────────────────────────────────────────────────┤
 │                                                              │
-│  [Usuarios] [Propiedades] [Reservas] [Consultas] [Reseñas]   │
+│  🔍 Buscar usuario...          [Filtrar por rol ▾]  [+ Nuevo]│
+│  [Ver activas] / [Papelera]  ← toggle                        │
 │                                                              │
+│  (Modo papelera activo)                                      │
 │  ┌────┬──────────────┬──────────────────┬──────────────┐     │
 │  │ ID │ Nombre       │ Email            │ Eliminado el │     │
 │  ├────┼──────────────┼──────────────────┼──────────────┤     │
@@ -487,37 +491,44 @@ flowchart TD
 
 ---
 
-## 14. Mapa de navegación (sitemap)
+## 14. Mapa de navegación (sitemap) — Rutas reales del proyecto
 
 ```mermaid
 flowchart TD
-    Root["/ (Home)"] --> Catalogo["/catalogo (Catálogo)"]
-    Root --> Detalle["/propiedad/:id (Detalle)"]
-    Root --> Login["/login"]
-    Root --> Registro["/registro"]
-    Root --> Contacto["/contacto"]
-    Root --> FAQ["/faq"]
+    Root["/ (Home)"] --> Home2["/home (Home)"]
+    Root --> Propiedades["/propiedades (Catálogo)"]
+    Root --> Servicios["/servicios (Servicios)"]
+    Root --> Contacto["/contacto (Contacto)"]
+    Root --> FAQ["/preguntas-frecuentes (FAQ)"]
+    Root --> Terminos["/terminos (Términos)"]
+    Root --> Privacidad["/privacidad (Privacidad)"]
 
-    Catalogo --> Detalle
-    Detalle --> Reservar["/reservar/:id"]
-    Detalle --> Consultar["Modal: Consulta"]
-    Detalle --> Favorito["Toggle favorito"]
+    Propiedades --> Detalle["/propiedades/:id (Detalle)"]
+    Detalle --> Reservar["/reservas/:id (Detalle reserva)"]
 
-    Login --> Perfil["/perfil"]
-    Registro --> Verificar["/verificar-email/:token"]
+    Root --> Login["/login (Login)"]
+    Root --> Registro["/register (Registro)"]
+    Root --> Recuperar["/recuperar-contrasena (Recuperar)"]
+    Root --> Restablecer["/restablecer-contrasena (Restablecer)"]
+    Root --> Verificar["/verificar-email (Verificar)"]
+
+    Login --> Perfil["/perfil (Perfil)"]
+    Registro --> Verificar
     Registro --> Login
 
-    Perfil --> MisProps["/perfil/propiedades"]
-    Perfil --> MisReservas["/perfil/reservas"]
-    Perfil --> Favoritos["/perfil/favoritos"]
-    Perfil --> MisConsultas["/perfil/consultas"]
-    Perfil --> MisResenas["/perfil/resenas"]
-    Perfil --> EditarPerfil["/perfil/editar"]
+    Perfil --> MisProps["/mis-propiedades (Mis propiedades)"]
+    Perfil --> MisReservas["/reservas (Mis reservas)"]
+    Perfil --> Consultas["/consultas (Mis consultas)"]
+    Perfil --> MisResenas["/mis-resenas (Mis reseñas)"]
+    Perfil --> Notificaciones["/notificaciones (Notificaciones)"]
+    Perfil --> Favoritos["/favoritos (Favoritos)"]
+    Perfil --> PerfilPublico["/usuarios/:id (Perfil público)"]
 
-    MisProps --> Publicar["/propiedades/nueva"]
-    MisProps --> EditarProp["/propiedades/:id/editar"]
+    MisProps --> Publicar["/propiedades/crear (Publicar)"]
+    MisProps --> EditarProp["/propiedades/:id/editar (Editar)"]
 
     Perfil --> Admin["/admin (solo admin)"]
+    Admin --> AdminHome["/admin (Dashboard admin)"]
     Admin --> AdminUsers["/admin/usuarios"]
     Admin --> AdminProps["/admin/propiedades"]
     Admin --> AdminReservas["/admin/reservas"]
@@ -529,7 +540,8 @@ flowchart TD
     Admin --> AdminServ["/admin/servicios"]
     Admin --> AdminRoles["/admin/roles"]
     Admin --> AdminLogs["/admin/logs"]
-    Admin --> AdminTrash["/admin/papelera"]
+
+    Root --> NotFound["* (404)"]
 ```
 
 ---
@@ -777,15 +789,16 @@ flowchart LR
 
 ---
 
-## 23. Cambiar contraseña (desde perfil)
+## 23. Cambiar contraseña (dentro de Perfil)
+
+> Nota: El cambio de contraseña NO es una página separada. Es una sección dentro de la página de Perfil (`/perfil`), que envía un email de confirmación.
 
 ```text
 ┌──────────────────────────────────────────────┐
-│  Mi perfil > Cambiar contraseña               │
+│  Mi perfil > (sección Cambiar contraseña)     │
 ├──────────────────────────────────────────────┤
 │                                              │
 │  ┌────────────────────────────────────────┐  │
-│  │                                        │  │
 │  │  Contraseña actual                     │  │
 │  │  ┌──────────────────────────────┐      │  │
 │  │  │ ••••••••                     │      │  │
@@ -795,6 +808,7 @@ flowchart LR
 │  │  ┌──────────────────────────────┐      │  │
 │  │  │ ••••••••                     │      │  │
 │  │  └──────────────────────────────┘      │  │
+│  │  (mín. 8 caracteres, 1 mayúscula, 1 nº)│  │
 │  │                                        │  │
 │  │  Confirmar nueva contraseña             │  │
 │  │  ┌──────────────────────────────┐      │  │
@@ -1065,6 +1079,161 @@ flowchart LR
 │  └──────────┴──────────────┴──────────────┴──────────────┘   │
 │                                                              │
 │  [← Anterior]  Página 1 de 20  [Siguiente →]                │
+└──────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 33. Catálogo de propiedades (/propiedades)
+
+```text
+┌──────────────────────────────────────────────────────────────┐
+│  [Logo] AlquilER          [Buscar...]   [🔔] [👤 Mi perfil] │
+├──────────────────────────────────────────────────────────────┤
+│                                                              │
+│  ┌──────────────────────────────────────────────────────┐    │
+│  │  🔍 Buscar propiedades...                            │    │
+│  │  [Categoría ▾] [Provincia ▾] [Precio min] [Precio max]│    │
+│  │  [Mascotas ☐] [Hijos ☐] [Ambientes ▾] [Buscar]      │    │
+│  └──────────────────────────────────────────────────────┘    │
+│                                                              │
+│  ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐              │
+│  │ [img]  │ │ [img]  │ │ [img]  │ │ [img]  │              │
+│  │ Título │ │ Título │ │ Título │ │ Título │              │
+│  │ $1500  │ │ $2000  │ │ $1200  │ │ $1800  │              │
+│  │ 2 hab  │ │ 3 hab  │ │ 1 hab  │ │ 2 hab  │              │
+│  └────────┘ └────────┘ └────────┘ └────────┘              │
+│                                                              │
+│  [← Anterior]  Página 1 de 5  [Siguiente →]                │
+└──────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 34. Servicios (/servicios)
+
+```text
+┌──────────────────────────────────────────────────────────────┐
+│  [Logo] AlquilER          [Buscar...]   [🔔] [👤 Mi perfil] │
+├──────────────────────────────────────────────────────────────┤
+│                                                              │
+│  Servicios disponibles                                       │
+│                                                              │
+│  ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐              │
+│  │ [icon] │ │ [icon] │ │ [icon] │ │ [icon] │              │
+│  │ WiFi   │ │ Parking│ │ Pileta │ │ Aire   │              │
+│  └────────┘ └────────┘ └────────┘ └────────┘              │
+│                                                              │
+│  ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐              │
+│  │ [icon] │ │ [icon] │ │ [icon] │ │ [icon] │              │
+│  │ Amob.  │ │ Segur. │ │ Masc.  │ │ Jardín │              │
+│  └────────┘ └────────┘ └────────┘ └────────┘              │
+│                                                              │
+│  (Propiedades con este servicio)                             │
+│  ┌────────┐ ┌────────┐ ┌────────┐                           │
+│  │ [img]  │ │ [img]  │ │ [img]  │                           │
+│  │ Título │ │ Título │ │ Título │                           │
+│  └────────┘ └────────┘ └────────┘                           │
+└──────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 35. Términos y condiciones (/terminos)
+
+```text
+┌──────────────────────────────────────────────────────────────┐
+│  [Logo] AlquilER                                             │
+├──────────────────────────────────────────────────────────────┤
+│                                                              │
+│  Términos y condiciones                                      │
+│                                                              │
+│  ┌──────────────────────────────────────────────────────┐    │
+│  │  1. Aceptación de los términos                       │    │
+│  │  Al usar AlquilER, aceptás estos términos...         │    │
+│  │                                                      │    │
+│  │  2. Uso del servicio                                 │    │
+│  │  El servicio permite publicar y reservar...          │    │
+│  │                                                      │    │
+│  │  3. Responsabilidades                                │    │
+│  │  ...                                                 │    │
+│  └──────────────────────────────────────────────────────┘    │
+└──────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 36. Política de privacidad (/privacidad)
+
+```text
+┌──────────────────────────────────────────────────────────────┐
+│  [Logo] AlquilER                                             │
+├──────────────────────────────────────────────────────────────┤
+│                                                              │
+│  Política de privacidad                                      │
+│                                                              │
+│  ┌──────────────────────────────────────────────────────┐    │
+│  │  1. Datos que recopilamos                            │    │
+│  │  Nombre, email, teléfono, domicilio...               │    │
+│  │                                                      │    │
+│  │  2. Uso de los datos                                 │    │
+│  │  Para gestionar reservas, notificaciones...          │    │
+│  │                                                      │    │
+│  │  3. Derechos del usuario                             │    │
+│  │  Acceso, rectificación, eliminación...               │    │
+│  └──────────────────────────────────────────────────────┘    │
+└──────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 37. Perfil público (/usuarios/:id)
+
+```text
+┌──────────────────────────────────────────────────────────────┐
+│  [Logo] AlquilER          [Buscar...]   [🔔] [👤 Mi perfil] │
+├──────────────────────────────────────────────────────────────┤
+│                                                              │
+│  ← Volver                                                    │
+│                                                              │
+│  ┌──────────────────────────────────────────────────────┐    │
+│  │  👤 Juan Pérez                                        │    │
+│  │  Miembro desde: Enero 2026                            │    │
+│  │  ★★★★☆ 4.5 (12 reseñas como inquilino)              │    │
+│  │                                                      │    │
+│  │  Propiedades publicadas: 3                            │    │
+│  │  ┌────────┐ ┌────────┐ ┌────────┐                   │    │
+│  │  │ [img]  │ │ [img]  │ │ [img]  │                   │    │
+│  │  │ Título │ │ Título │ │ Título │                   │    │
+│  │  └────────┘ └────────┘ └────────┘                   │    │
+│  └──────────────────────────────────────────────────────┘    │
+└──────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 38. Dashboard admin (/admin)
+
+> El dashboard admin ya está wireframeado en #8. Se agrega aquí el detalle de métricas.
+
+```text
+┌──────────────────────────────────────────────────────────────┐
+│  Panel Admin > Dashboard                                     │
+├──────────────────────────────────────────────────────────────┤
+│                                                              │
+│  ┌────┐ ┌────┐ ┌────┐ ┌────┐ ┌────┐                        │
+│  │ 42 │ │ 15 │ │ 8  │ │ 3  │ │ 5  │                        │
+│  │Users│ │Props│ │Res.│ │Pend│ │Cons│                        │
+│  └────┘ └────┘ └────┘ └────┘ └────┘                        │
+│                                                              │
+│  ─── Última actividad ───                                    │
+│  • Usuario X reservó propiedad Y                             │
+│  • Admin Z marcó propiedad destacada                          │
+│  • Usuario W creó consulta                                   │
+│                                                              │
+│  ─── Accesos rápidos ───                                     │
+│  [Gestionar usuarios] [Gestionar propiedades]                │
+│  [Ver papelera] [Ver logs]                                    │
 └──────────────────────────────────────────────────────────────┘
 ```
 
