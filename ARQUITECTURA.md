@@ -629,3 +629,241 @@ classDiagram
     Reserva "1" --> "*" Resena : genera
     Reserva "1" --> "1" Propiedad : es de
 ```
+
+---
+
+## 21. Matriz de roles y permisos (RBAC)
+
+```mermaid
+flowchart TD
+    subgraph Visitante["Visitante (no autenticado)"]
+        V1[Ver catálogo de propiedades]
+        V2[Ver detalle de propiedad]
+        V3[Ver servicios, categorías]
+        V4[Enviar mensaje de contacto]
+        V5[Ver FAQ]
+    end
+
+    subgraph Usuario["Usuario (rol_id=1)"]
+        U1[Todo lo del Visitante]
+        U2[Registrarse y verificar email]
+        U3[Iniciar/cerrar sesión]
+        U4[Publicar propiedades]
+        U5[Reservar propiedades]
+        U6[Agregar/quitar favoritos]
+        U7[Consultar sobre propiedades]
+        U8[Responder consultas (si es propietario)]
+        U9[Crear reseñas (post-reserva finalizada)]
+        U10[Editar perfil y contraseña]
+        U11[Ver notificaciones]
+    end
+
+    subgraph Propietario["Propietario (implícito)"]
+        P1[Todo lo del Usuario]
+        P2[Editar/eliminar sus propiedades]
+        P3[Confirmar/rechazar reservas]
+        P4[Finalizar reservas]
+        P5[Responder consultas de sus propiedades]
+        P6[Reseñar inquilinos]
+        P7[Marcar imagen principal]
+    end
+
+    subgraph Admin["Administrador (rol_id=2)"]
+        A1[Todo lo del Usuario]
+        A2[Panel de administración]
+        A3[Gestionar usuarios (CRUD + restore)]
+        A4[Gestionar categorías, provincias, localidades, servicios, roles]
+        A5[Gestionar propiedades (todas, incluyendo eliminadas)]
+        A6[Marcar propiedades como destacadas]
+        A7[Gestionar reservas, consultas, reseñas]
+        A8[Ver y restaurar registros eliminados (papelera)]
+        A9[Ver logs de actividad]
+        A10[Restaurar registros soft-deleted]
+    end
+```
+
+### Tabla de permisos por recurso
+
+| Recurso | Visitante | Usuario | Propietario | Admin |
+|---|---|---|---|---|
+| Ver catálogo | ✅ | ✅ | ✅ | ✅ |
+| Ver detalle propiedad | ✅ | ✅ | ✅ | ✅ |
+| Publicar propiedad | ❌ | ✅ | ✅ | ✅ |
+| Editar propiedad propia | ❌ | ❌ | ✅ | ✅ |
+| Editar propiedad ajena | ❌ | ❌ | ❌ | ✅ |
+| Reservar | ❌ | ✅ | ✅ | ✅ |
+| Confirmar/rechazar reserva | ❌ | ❌ | ✅ (suya) | ✅ |
+| Cancelar reserva | ❌ | ✅ (propia) | ✅ (propia) | ✅ |
+| Finalizar reserva | ❌ | ❌ | ✅ (suya) | ✅ |
+| Favoritos | ❌ | ✅ | ✅ | ✅ |
+| Consultas | ❌ | ✅ | ✅ | ✅ |
+| Reseñas | ❌ | ✅ (post-finalizada) | ✅ | ✅ |
+| Panel admin | ❌ | ❌ | ❌ | ✅ |
+| Papelera (restore) | ❌ | ❌ | ❌ | ✅ |
+| Logs de actividad | ❌ | ❌ | ❌ | ✅ |
+
+## 22. Flujo de búsqueda y filtrado
+
+```mermaid
+sequenceDiagram
+    participant U as Usuario
+    participant F as Frontend
+    participant C as FileCache
+    participant B as Backend
+    participant DB as MySQL
+
+    U->>F: Ingresar filtros (categoría, precio, etc.)
+    F->>F: Debounce (300ms)
+    F->>B: GET /api/propiedades?categoria_id=1&precio_min=1000&...
+
+    B->>B: Validar filtros (PropiedadValidator)
+    B->>C: ¿Catálogos de referencia en cache?
+    alt Cache hit
+        C-->>B: Categorías, provincias, etc.
+    else Cache miss
+        B->>DB: SELECT categorías, provincias...
+        DB-->>B: Datos
+        B->>C: Guardar en cache (TTL)
+    end
+
+    B->>DB: SELECT propiedades WHERE filtros + paginación
+    DB-->>B: Resultados + total
+    B->>B: Serializar + incluir imágenes principales
+    B-->>F: 200 OK {data, meta: {total, page, per_page}}
+
+    F->>F: Renderizar cards + paginación
+    F-->>U: Mostrar resultados
+
+    Note over F: Si no hay resultados → EmptyState con sugerencias
+```
+
+### Filtros disponibles
+
+| Filtro | Tipo | Descripción |
+|---|---|---|
+| `categoria_id` | int[] | Categorías (múltiples) |
+| `provincia_id` | int | Provincia |
+| `localidad_id` | int | Localidad |
+| `servicio_id` | int[] | Servicios (múltiples) |
+| `acepta_mascotas` | bool | Acepta mascotas |
+| `acepta_hijos` | bool | Acepta hijos |
+| `precio_min` / `precio_max` | decimal | Rango de precio |
+| `cantidad_ambientes` | int | Ambientes |
+| `cantidad_dormitorios` | int | Dormitorios |
+| `cantidad_banos` | int | Baños |
+| `capacidad` | int | Capacidad de personas |
+| `page` | int | Página (default: 1) |
+| `per_page` | int | Resultados por página (default: 10) |
+| `orden` | string | Ordenamiento (recientes, precio_asc, precio_desc) |
+
+## 23. Flujo de consultas y mensajería
+
+```mermaid
+sequenceDiagram
+    participant I as Interesado
+    participant F as Frontend
+    participant B as Backend
+    participant P as Propietario
+
+    I->>F: Ver detalle de propiedad
+    I->>F: Click "Consultar"
+    F->>B: POST /api/consultas {propiedad_id, mensaje}
+    B->>B: Validar mensaje (no vacío, max 1000 chars)
+    B->>B: Crear consulta (estado: abierta)
+    B->>B: Notificar al propietario
+    B-->>F: 201 Created
+    F-->>I: Consulta enviada
+
+    P->>F: Ver notificación de nueva consulta
+    P->>F: Abrir consulta
+    F->>B: GET /api/consultas/{id}
+    B-->>F: Consulta + mensajes
+    P->>F: Escribir respuesta
+    F->>B: POST /api/consultas/{id}/respuestas {mensaje}
+    B->>B: Crear respuesta
+    B->>B: Notificar al interesado
+    B-->>F: 201 Created
+
+    I->>F: Ver notificación de respuesta
+    I->>F: Abrir consulta
+    F->>B: GET /api/consultas/{id}
+    B-->>F: Consulta + mensajes (bidireccional)
+    I->>F: Responder
+    F->>B: POST /api/consultas/{id}/respuestas {mensaje}
+    B->>B: Crear respuesta
+    B->>B: Notificar al propietario
+    B-->>F: 201 Created
+```
+
+### Reglas de la mensajería
+
+| Regla | Descripción |
+|---|---|
+| RN-35 | Solo usuarios autenticados pueden consultar. |
+| RN-36 | Solo el propietario de la propiedad puede responder. |
+| RN-37 | La mensajería es bidireccional (interesado ↔ propietario). |
+| RN-38 | Al crear consulta, se notifica al propietario. |
+| RN-39 | Al responder, se notifica al interesado. |
+| RN-40 | Las consultas usan soft delete. |
+
+## 24. Topología de red e infraestructura
+
+```mermaid
+flowchart TD
+    subgraph Internet
+        DNS[DNS: alquilerr.alwaysdata.net<br/>alquiler.alwaysdata.net]
+    end
+
+    subgraph alwaysdata["alwaysdata (Hosting compartido)"]
+        subgraph Frontend["Servidor Frontend"]
+            Apache1[Apache<br/>Sirve archivos estáticos]
+            HT1[.htaccess<br/>SPA fallback + UTF-8]
+        end
+        subgraph Backend["Servidor Backend"]
+            Apache2[Apache + mod_php<br/>PHP 8.2]
+            HT2[.htaccess<br/>Rewrite + headers]
+            PHP[PHP App<br/>src/ + config/]
+            Storage[storage/<br/>uploads, logs, cache]
+        end
+        subgraph Database["Base de datos"]
+            MySQL[(MySQL 8.0<br/>sistema_alquiler_db)]
+        end
+    end
+
+    subgraph Externo["Servicios externos"]
+        Resend[Resend / SMTP<br/>Envío de emails]
+        CDN[CDN (opcional)<br/>Assets estáticos]
+    end
+
+    DNS --> Apache1
+    DNS --> Apache2
+    Apache1 --> HT1
+    Apache2 --> HT2
+    HT2 --> PHP
+    PHP --> Storage
+    PHP --> MySQL
+    PHP --> Resend
+    Apache1 -.-> CDN
+```
+
+### Puertos y protocolos
+
+| Servicio | Puerto | Protocolo | Descripción |
+|---|---|---|---|
+| Frontend (producción) | 443 | HTTPS | Sitio estático (React build) |
+| Backend (producción) | 443 | HTTPS | API REST (PHP) |
+| MySQL (producción) | 3306 | TCP | Base de datos (interna) |
+| Frontend (desarrollo) | 3000 | HTTP | Vite dev server |
+| Backend (desarrollo) | 8000 | HTTP | PHP built-in server |
+| MySQL (desarrollo) | 3306 | TCP | MySQL local |
+
+### Variables de entorno por entorno
+
+| Variable | Desarrollo | Producción |
+|---|---|---|
+| `APP_ENV` | `development` | `production` |
+| `APP_URL` | `http://localhost:3000` | `https://alquilerr.alwaysdata.net` |
+| `API_URL` | `http://127.0.0.1:8000` | `https://alquiler.alwaysdata.net` |
+| `DB_HOST` | `127.0.0.1` | `mysql-alquiler.alwaysdata.net` |
+| `MAIL_HOST` | (vacío = log local) | `smtp.resend.com` |
+| `CORS_ALLOWED_ORIGINS` | `http://localhost:3000` | `https://alquilerr.alwaysdata.net` |
