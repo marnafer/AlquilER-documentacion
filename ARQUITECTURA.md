@@ -397,33 +397,33 @@ flowchart TD
     subgraph Shared Components
         C1[Header]
         C2[Footer]
-        C3[PropertyCard]
-        C4[Modal]
-        C5[Toast]
-        C6[Skeleton]
-        C7[EmptyState]
-        C8[ErrorState]
+        C3[PropiedadCard]
+        C4[PropiedadCardImage]
+        C5[PropiedadDetalle]
+        C6[EmptyState]
+        C7[ErrorState]
+        C8[Loader]
+        C9[SkeletonCard]
+        C10[MultiSelect]
+        C11[Icon]
+        C12[ServicioIcono]
     end
 
     subgraph Contexts
         X1[AuthContext]
         X2[ThemeContext]
-        X3[ToastContext]
+        X3[UIContext]
     end
 
     subgraph Hooks
         H1[useAuth]
-        H2[useApi]
-        H3[useTheme]
-        H4[useDebounce]
+        H2[useScrollReveal]
+        H3[useSEO]
     end
 
     subgraph API Layer
-        A1[authApi]
-        A2[propiedadesApi]
-        A3[reservasApi]
-        A4[consultasApi]
-        A5[resenasApi]
+        A1[services/api.js<br/>todas las llamadas HTTP]
+        A2[services/autoRefresh.js<br/>refresh automático]
     end
 
     P1 --> C1 & C2 & C3
