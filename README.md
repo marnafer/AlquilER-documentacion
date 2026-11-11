@@ -25,8 +25,9 @@ Repositorio de documentación del proyecto **AlquilER**, un sistema de alquiler 
 - `EJEMPLO_CLIENTE.js` — Ejemplo de cliente para consumir la API.
 
 ### Base de datos
-- `schema.sql` — Esquema de la base de datos (CREATE TABLE).
+- `schema.sql` — Esquema de la base de datos (CREATE TABLE de 18 tablas).
+- `ERD.md` — Diagrama entidad-relación (Mermaid + tablas de relaciones).
 
 ### Proyecto
 - `project_brief_y_agenda_alquiler.md` — Brief del proyecto y agenda.
-- `capturas/` — Capturas de pantalla de la API y la interfaz (7 imágenes).
+- `capturas/` — 7 capturas de pantalla (API + interfaz).
