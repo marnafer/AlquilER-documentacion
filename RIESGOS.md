@@ -30,6 +30,7 @@
 | RO-05 | **Migraciones de base de datos** — Si se olvida ejecutar una migración, la app falla. | Media | Alto | Documentar migraciones pendientes. Ejecutar `scripts/migrations/` en deploy. |
 | RO-06 | **Rate limit storage** — Si el directorio de rate limit no es escribible, falla. | Baja | Medio | Usar directorio temporal del sistema como fallback. |
 | RO-07 | **Logs crecen sin límite** — `storage/emails.log`, `storage/errores.log`, `debug.log` pueden crecer indefinidamente. | Media | Bajo | Rotación de logs (ya implementada para performance.jsonl: 5MB, 3 generaciones). Extender a otros logs. |
+| RO-08 | **Bus factor** — El proyecto depende de 2 desarrolladores. Si uno no está disponible, el mantenimiento se ralentiza. | Media | Medio | Documentación completa (este repo). Código con comentarios. Tests automatizados. |
 
 ## 3. Riesgos de seguridad
 
@@ -43,6 +44,8 @@
 | RS-06 | **CORS mal configurado** — Si `CORS_ALLOWED_ORIGINS` es `*`, cualquier sitio puede hacer requests. | Baja | Alto | Configurar orígenes específicos en producción. |
 | RS-07 | **SQL Injection** — Aunque se usa Eloquent (parametrizado), queries raw podrían ser vulnerables. | Baja | Alto | Revisar queries raw en repositorios. Usar siempre query builder. |
 | RS-08 | **Secrets en el repositorio** — `.env` con credenciales commiteado por error. | Baja | Alto | `.env` está en `.gitignore`. Verificar con `git status` antes de commit. |
+| RS-09 | **Fuerza de contraseña** — No se valida complejidad mínima (mayúsculas, números, símbolos) en el registro. | Media | Medio | Agregar validación de complejidad en `UsuarioValidator`. Requerir mínimo 8 caracteres con al menos 1 mayúscula, 1 número. |
+| RS-10 | **Cumplimiento legal (GDPR/protección de datos)** — El sistema almacena datos personales (nombre, email, teléfono, domicilio) sin política de privacidad explícita ni mecanismo de eliminación de cuenta. | Baja | Alto | Implementar política de privacidad, opción de eliminación de cuenta (derecho al olvido), y consentimiento explícito. |
 
 ## 4. Riesgos de negocio
 
