@@ -25,6 +25,7 @@ Repositorio de documentación del proyecto **AlquilER**, un sistema de alquiler 
 - `ENV.md` — Referencia de variables de entorno.
 - `TROUBLESHOOTING.md` — Problemas comunes y soluciones.
 - `TESTING.md` — Guía de testing (unitarios, integración, E2E).
+- `INVENTARIO_TESTS.md` — Inventario de tests existentes y faltantes.
 - `QA_UAT.md` — Aseguramiento de calidad (QA) y pruebas de aceptación (UAT).
 - `CHANGELOG.md` — Historial de cambios por versión.
 - `LICENSE` — Licencia MIT.
