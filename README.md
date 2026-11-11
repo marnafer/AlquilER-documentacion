@@ -20,6 +20,7 @@ Repositorio de documentación del proyecto **AlquilER**, un sistema de alquiler 
 - `DEPLOY.md` — Guía de despliegue a producción.
 - `ENV.md` — Referencia de variables de entorno.
 - `TROUBLESHOOTING.md` — Problemas comunes y soluciones.
+- `TESTING.md` — Guía de testing (PHPUnit + Playwright).
 - `CHANGELOG.md` — Historial de cambios por versión.
 - `LICENSE` — Licencia MIT.
 
