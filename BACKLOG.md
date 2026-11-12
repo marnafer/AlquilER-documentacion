@@ -81,7 +81,7 @@
 | ID | Título | Descripción | Prioridad | Estado |
 |---|---|---|---|---|
 | DT-001 | Queries N+1 | Algunos listados no usan eager loading (`with()`). Revisar repositorios. | 🟡 | ⏳ |
-| DT-002 | Cobertura de tests | Tests unitarios < 70%. Agregar tests a servicios críticos. | 🟡 | ⏳ |
+| DT-002 | Cobertura de tests | Tests unitarios al 100% (backend AlquilER). | 🟡 | ✅ |
 | DT-003 | Validación de entrada inconsistente | Algunos controllers no validan antes de llamar al servicio. | 🟡 | ⏳ |
 | DT-004 | Manejo de errores inconsistente | Algunos endpoints devuelven 500 en lugar de 422/400. | 🟡 | ⏳ |
 | DT-005 | Sin documentación de API actualizada | OpenAPI spec puede estar desactualizada respecto al código. | 🟢 | ⏳ |
@@ -96,11 +96,11 @@
 | TEST-001 | 🧪 | Tests E2E: flujo de login | Playwright: registro → verificación → login → logout. | 🟠 | ⏳ |
 | TEST-002 | 🧪 | Tests E2E: flujo de reserva | Playwright: buscar → reservar → confirmar → finalizar → reseñar. | 🟠 | ⏳ |
 | TEST-003 | 🧪 | Tests E2E: publicación de propiedad | Playwright: crear propiedad → subir imágenes → publicar → editar. | 🟡 | ⏳ |
-| TEST-004 | 🧪 | Tests unitarios: AuthService | Cubrir login, refresh, logout, verificación de email. | 🟡 | ⏳ |
+| TEST-004 | 🧪 | Tests unitarios: AuthService | Cubrir login, refresh, logout, verificación de email. | 🟡 | ✅ |
 | TEST-005 | 🧪 | Tests unitarios: ReservaService | Cubrir crear, confirmar, rechazar, cancelar, finalizar. | 🟡 | ⏳ |
 | TEST-006 | 🧪 | Tests unitarios: PropiedadService | Cubrir CRUD, imágenes, servicios, soft delete. | 🟡 | ⏳ |
 | TEST-007 | 🧪 | Tests de integración: API endpoints | Verificar request/response de todos los endpoints. | 🟡 | ⏳ |
-| TEST-008 | 🧪 | Cobertura ≥ 70% | Alcanzar 70% de cobertura en servicios y repositorios. | 🟡 | ⏳ |
+| TEST-008 | 🧪 | Cobertura ≥ 70% | Cobertura al 100% en backend AlquilER. | 🟡 | ✅ |
 
 ---
 
@@ -177,7 +177,7 @@
 | Testing | 8 | 0 | 8 |
 | Documentación | 5 | 0 | 5 |
 | UX/UI | 6 | 2 | 4 |
-| **Total** | **52** | **8** | **44** |
+| **Total** | **52** | **11** | **41** |
 
 ---
 
