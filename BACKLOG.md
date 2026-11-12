@@ -34,8 +34,6 @@
 | BL-003 | ✨ | Validación de complejidad de contraseña | Agregar validación en `UsuarioValidator`: mínimo 8 caracteres, 1 mayúscula, 1 número. | 🟠 | ✅ |
 | BL-004 | ✨ | Política de privacidad | Página de política y consentimiento explícito en el registro. | 🟠 | ✅ |
 | BL-005 | ✨ | Derecho al olvido | Endpoint para que el usuario solicite eliminación de su cuenta y datos. | 🟠 | ⏳ |
-| BL-006 | ✨ | Backups automáticos de BD | Configurar backups diarios en alwaysdata. | 🟠 | ⏳ |
-| BL-007 | ✨ | Monitoreo de uptime | Configurar UptimeRobot o similar para detectar caídas. | 🟠 | ⏳ |
 
 ### 2.2 Media prioridad
 
@@ -134,8 +132,6 @@
 ### Sprint 1: Producción estable (crítico)
 - BL-001: Configurar SMTP
 - BL-002: Configurar APP_ENV=production
-- BL-006: Backups automáticos
-- BL-007: Monitoreo de uptime
 
 ### Sprint 2: Seguridad y compliance
 - BL-003: Validación de contraseña
@@ -171,13 +167,13 @@
 
 | Categoría | Total | Completados | Pendientes |
 |---|---|---|---|
-| Funcionalidades | 21 | 2 | 19 |
+| Funcionalidades | 19 | 2 | 17 |
 | Bugs | 6 | 4 | 2 |
 | Deuda técnica | 6 | 0 | 6 |
 | Testing | 8 | 0 | 8 |
 | Documentación | 5 | 0 | 5 |
 | UX/UI | 6 | 2 | 4 |
-| **Total** | **52** | **15** | **37** |
+| **Total** | **50** | **15** | **35** |
 
 ---
 
