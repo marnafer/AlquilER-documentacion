@@ -97,8 +97,8 @@
 | TEST-002 | 🧪 | Tests E2E: flujo de reserva | Playwright: buscar → reservar → confirmar → finalizar → reseñar. | 🟠 | ⏳ |
 | TEST-003 | 🧪 | Tests E2E: publicación de propiedad | Playwright: crear propiedad → subir imágenes → publicar → editar. | 🟡 | ⏳ |
 | TEST-004 | 🧪 | Tests unitarios: AuthService | Cubrir login, refresh, logout, verificación de email. | 🟡 | ✅ |
-| TEST-005 | 🧪 | Tests unitarios: ReservaService | Cubrir crear, confirmar, rechazar, cancelar, finalizar. | 🟡 | ⏳ |
-| TEST-006 | 🧪 | Tests unitarios: PropiedadService | Cubrir CRUD, imágenes, servicios, soft delete. | 🟡 | ⏳ |
+| TEST-005 | 🧪 | Tests unitarios: ReservaService | Cobertura al 100%. | 🟡 | ✅ |
+| TEST-006 | 🧪 | Tests unitarios: PropiedadService | Cobertura al 100%. | 🟡 | ✅ |
 | TEST-007 | 🧪 | Tests de integración: API endpoints | Verificar request/response de todos los endpoints. | 🟡 | ⏳ |
 | TEST-008 | 🧪 | Cobertura ≥ 70% | Cobertura al 100% en backend AlquilER. | 🟡 | ✅ |
 
@@ -177,7 +177,7 @@
 | Testing | 8 | 0 | 8 |
 | Documentación | 5 | 0 | 5 |
 | UX/UI | 6 | 2 | 4 |
-| **Total** | **52** | **11** | **41** |
+| **Total** | **52** | **13** | **39** |
 
 ---
 
