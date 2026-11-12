@@ -60,8 +60,8 @@ tests/
 ```
 
 ### Cobertura
-- **2185 tests**, **6800+ assertions**.
-- Cobertura de: controladores, servicios, repositorios, sanitizers, validadores, middlewares, helpers, políticas, rutas.
+- **2.300 tests**, **7.115 assertions** (todos pasan).
+- Cobertura del 100% (10.986 líneas, 1.008 métodos, 164 clases).
 - Tests de integración para integridad de BD e imágenes HTTP.
 
 ### Configuración de tests
@@ -121,13 +121,14 @@ npx playwright show-report
 ### Estructura de tests
 ```
 tests/
-├── chips-solapamiento.spec.js   # Solapamiento de chips en móvil
-e2e/
-├── usuario.spec.js              # Flujo de usuario (registro, catálogo, detalle, favoritos)
-├── admin.spec.js                # Panel de administración
-├── destacadas.spec.js           # Propiedades destacadas
-├── notificaciones.spec.js        # Notificaciones
-└── global-teardown.js           # Limpieza global
+├── chips-solapamiento.spec.js   # Solapamiento de chips en movil y listado
+└── e2e/
+    ├── usuario.spec.js          # Registro, catalogo, detalle, favoritos, consulta, reserva, refresh de sesion
+    ├── admin.spec.js            # Panel de administracion (propiedades, filtros, CSV, papelera)
+    ├── destacadas.spec.js       # Propiedades destacadas (admin marca, Home muestra)
+    ├── notificaciones.spec.js   # Campanita, badge, dropdown, pagina de notificaciones
+    ├── helpers.js               # Sesiones de API con cookies aisladas, login, limpieza, carrusel
+    └── smtp-server.cjs         # Servidor SMTP falso en 127.0.0.1:1025 para el registro
 ```
 
 ### Configuración (playwright.config.js)

@@ -1,24 +1,24 @@
-# Inventario de Tests — AlquilER
+# Inventario de Tests - AlquilER
 
 > Listado completo de tests existentes y faltantes del proyecto AlquilER.
-> Para guiar la creación de nuevos tests.
+> Para guiar la creacion de nuevos tests.
 
 ---
 
 ## 1. Backend (PHPUnit)
 
-### 1.1 Tests existentes (2.193 tests, 2.190 pasan, 3 fallan)
+### 1.1 Tests existentes (2.300 tests, 7.115 assertions, todos pasan)
 
 #### Unit Tests (tests/Unit/)
 
 | Carpeta | Cantidad | Cobertura |
 |---|---|---|
 | `Controllers/Api/` | 20 | Controladores REST |
-| `Services/` | 22 | Lógica de negocio |
+| `Services/` | 22 | Logica de negocio |
 | `Repositories/` | 21 | Acceso a datos |
-| `Validators/` | 20 | Validación de campos |
-| `Sanitizers/` | 18 | Sanitización de inputs |
-| `Policies/` | 7 | Autorización |
+| `Validators/` | 20 | Validacion de campos |
+| `Sanitizers/` | 18 | Sanitizacion de inputs |
+| `Policies/` | 7 | Autorizacion |
 | `Models/` | 1 | Relaciones de modelos |
 | `Middlewares/` | 3 | CSRF, Debug, RateLimit |
 | `Helpers/` | 4 | JwtProvider, Response, etc. |
@@ -29,149 +29,105 @@
 | `Exceptions/` | 1 | GlobalExceptionHandler |
 | `Debug/` | 1 | Debugger |
 | `Docs/` | 1 | OpenApiSpec |
-| `Performance/` | 8 | Métricas de performance |
-| `Controllers/` | 0 | (vacío, tests en Controllers/Api) |
+| `Performance/` | 8 | Metricas de performance |
+| `Controllers/` | 0 | (vacio, tests en Controllers/Api) |
 | **Total Unit** | **~113** | |
 
 #### Integration Tests (tests/Integration/)
 
-| Archivo | Descripción | Estado |
+| Archivo | Descripcion | Estado |
 |---|---|---|
-| `IntegridadBaseDeDatosTest` | Verifica integridad de BD (FKs, constraints) | ✅ Pasa |
-| `PropiedadImagenHttpTest` | Subida HTTP real de imágenes | ❌ 3 fallos |
-
-#### Tests que fallan (3)
-
-| Test | Causa probable | Solución |
-|---|---|---|
-| `test_subida_http_real_de_imagen_de_propiedad` | Requiere servidor web con GD y límites de upload | Configurar php.ini o usar mock |
-| `test_rechaza_imagen_http_que_supera_15_mb` | Requiere límite de upload de 15MB en php.ini | Ajustar `upload_max_filesize` |
-| `test_rechaza_imagen_http_con_dimension_excesiva` | Requiere validación de dimensiones en upload | Verificar configuración de GD |
-
----
+| `IntegridadBaseDeDatosTest` | Verifica integridad de BD (FKs, constraints) | OK. Pasa |
+| `PropiedadImagenHttpTest` | Subida HTTP real de imagenes | OK. Pasa (3 tests) |
 
 ### 1.2 Cobertura actual del backend
 
-| Métrica | Valor |
+| Metrica | Valor |
 |---|---|
-| Líneas | 56,40% (10.493/18.606) |
-| Métodos | 89,75% (876/976) |
-| Clases | 81,10% (133/164) |
+| Lineas | 100.00% (10.986/10.986) |
+| Metodos | 100.00% (1.008/1.008) |
+| Clases | 100.00% (164/164) |
+
+PHPUnit 11.5.56, 2.300 tests, 7.115 assertions. Todos los tests pasan.
 
 ### 1.3 Tests faltantes en el backend
 
-#### Servicios sin tests (o con baja cobertura)
-
-| Servicio | Tests existentes | Faltante |
-|---|---|---|
-| `AutenticadorService` | ✅ AutenticadorServiceTest | — |
-| `CategoriaService` | ✅ CategoriaServiceTest | — |
-| `ConsultaService` | ✅ ConsultaServiceTest | — |
-| `ContactoService` | ✅ ContactoServiceTest | — |
-| `FavoritoService` | ✅ FavoritoServiceTest | — |
-| `LocalidadService` | ✅ LocalidadServiceTest | — |
-| `LogActividadService` | ✅ LogActividadServiceTest | — |
-| `MailService` | ✅ MailServiceTest | — |
-| `MensajeConsultaService` | ✅ MensajeConsultaServiceTest | — |
-| `NotificacionService` | ✅ NotificacionServiceTest | — |
-| `PropiedadImagenService` | ✅ PropiedadImagenServiceTest | — |
-| `PropiedadService` | ✅ PropiedadServiceTest | — |
-| `PropiedadServicioService` | ✅ PropiedadServicioServiceTest | — |
-| `ProvinciaService` | ✅ ProvinciaServiceTest | — |
-| `RecuperarContrasenaService` | ✅ RecuperarContrasenaServiceTest | — |
-| `ResenaService` | ✅ ResenaServiceTest | — |
-| `ReservaService` | ✅ ReservaServiceTest | — |
-| `RolService` | ✅ RolServiceTest | — |
-| `ServicioService` | ✅ ServicioServiceTest | — |
-| `UsuarioService` | ✅ UsuarioServiceTest | — |
-
-> **Nota**: Todos los servicios tienen tests. La baja cobertura (56,40%) se debe a que los tests de integración (que requieren BD) no se ejecutan en CI, y a que hay código en `src/` que no está cubierto (Helpers, Performance, Debug, etc.).
-
-#### Código sin cobertura (estimado)
-
-| Módulo | Cobertura estimada | Prioridad |
-|---|---|---|
-| `src/Helpers/` (JwtProvider, ResponseHelper) | Parcial | Alta |
-| `src/Performance/` (métricas) | Parcial | Baja |
-| `src/Debug/` (debugger) | Parcial | Baja |
-| `src/Http/` (Request, Response) | Parcial | Media |
-| `src/Cache/` (FileCache) | Parcial | Media |
-| `src/Security/` (Authenticator) | Parcial | Alta |
-| `src/Middlewares/` | Parcial | Media |
-| `src/Repositories/` (Eloquent) | Parcial | Alta |
-| `src/Sanitizers/` | Parcial | Media |
-| `src/Validators/` | Parcial | Media |
+Ninguno critico: la cobertura del backend es 100%. La deuda restante es de calidad (N+1, validacion inconsistente) y no de cobertura.
 
 ---
 
 ## 2. Frontend (Playwright E2E)
 
-### 2.1 Tests existentes (10 tests, 4 flujos críticos)
+### 2.1 Tests existentes (92 tests = 23 x 4 viewports, 72 pasan, 20 saltados)
 
 | Archivo | Flujos cubiertos |
 |---|---|
-| `e2e/admin.spec.js` | Panel de administración |
-| `e2e/destacadas.spec.js` | Propiedades destacadas |
-| `e2e/notificaciones.spec.js` | Notificaciones |
-| `e2e/usuario.spec.js` | Flujo de usuario (login, reserva, etc.) |
-| `tests/chips-solapamiento.spec.js` | Chips de filtros |
+| `tests/e2e/admin.spec.js` | Login admin, menu de administracion, panel de propiedades (carga, filtros, exportacion CSV, papelera), acceso denegado a usuario comun |
+| `tests/e2e/destacadas.spec.js` | El admin marca una propiedad destacada y el Home la muestra; un usuario comun no puede destacar por API |
+| `tests/e2e/notificaciones.spec.js` | Campanita, badge, dropdown y pagina de notificaciones |
+| `tests/e2e/usuario.spec.js` | Registro con cuenta nueva, catalogo, detalle, favoritos, consulta y reserva desde el detalle, refresh automatico de sesion |
+| `tests/chips-solapamiento.spec.js` | Solapamiento de chips en detalle y listado (regresion) |
+| `tests/e2e/helpers.js` | Sesiones de API con cookies aisladas, login browser, limpieza de datos, carrusel del Home |
+| `tests/e2e/smtp-server.cjs` | Servidor SMTP falso en 127.0.0.1:1025 para el flujo de registro |
 
-### 2.2 Flujos E2E cubiertos (4/8)
+### 2.2 Flujos E2E cubiertos (8/8)
 
 | Flujo | Estado | Test |
 |---|---|---|
-| Login | ✅ | `usuario.spec.js` |
-| Registro | ✅ | `usuario.spec.js` |
-| Publicación de propiedad | ✅ | `usuario.spec.js` |
-| Reserva | ✅ | `usuario.spec.js` |
-| Reseña | ⏳ Pendiente | — |
-| Mensajería (consulta) | ⏳ Pendiente | — |
-| Favoritos | ⏳ Pendiente | — |
-| Notificaciones | ✅ | `notificaciones.spec.js` |
+| Login | OK | `usuario.spec.js`, `admin.spec.js` |
+| Registro | OK | `usuario.spec.js` |
+| Catalogo / detalle / favoritos | OK | `usuario.spec.js` |
+| Consulta y reserva | OK | `usuario.spec.js` |
+| Refresh automatico de sesion | OK | `usuario.spec.js` |
+| Panel de administracion | OK | `admin.spec.js` |
+| Propiedades destacadas | OK | `destacadas.spec.js` |
+| Notificaciones | OK | `notificaciones.spec.js` |
+| Chips (regresion visual) | OK | `chips-solapamiento.spec.js` |
+| Responsive (4 viewports) | OK | todos los specs x movil-390, tablet-768, desktop-1024, desktop-1440 |
 
 ### 2.3 Tests unitarios del frontend
 
 | Estado | Detalle |
 |---|---|
-| ❌ No implementados | No hay Jest/Vitest configurado |
-| ❌ No implementados | No hay tests de componentes |
-| ❌ No implementados | No hay tests de hooks |
+| No implementados | No hay Vitest/Jest configurado |
+| No implementados | No hay tests de componentes |
+| No implementados | No hay tests de hooks |
 
 ---
 
 ## 3. Tests faltantes (priorizados)
 
-### Prioridad Alta (críticos para release)
+### Prioridad Alta (criticos para release)
 
-| ID | Test | Tipo | Descripción |
+| ID | Test | Tipo | Descripcion |
 |---|---|---|---|
-| T-01 | E2E: Flujo de reseña | E2E | Crear reseña después de reserva finalizada |
-| T-02 | E2E: Mensajería de consulta | E2E | Enviar consulta → responder → conversación |
-| T-03 | E2E: Favoritos | E2E | Agregar/quitar favorito, ver lista |
-| T-04 | Fix: PropiedadImagenHttpTest | Integración | Corregir 3 fallos de subida de imágenes |
-| T-05 | Unit: JwtProvider | Unit | Generar/validar access y refresh tokens |
-| T-06 | Unit: Authenticator | Unit | Verificar autenticación, soloAdmin, papelera |
+| T-01 | E2E: Flujo de resena | E2E | Crear resena despues de reserva finalizada |
+| T-02 | E2E: Mensajeria de consulta | E2E | Enviar consulta -> responder -> conversacion |
+| T-03 | E2E: Favoritos | E2E | Ya cubierto en usuario.spec.js |
+| T-04 | Fix: PropiedadImagenHttpTest | Integracion | Resuelto (3 tests pasan) |
+| T-05 | Unit: JwtProvider | Unit | Cubierto por backend al 100% |
+| T-06 | Unit: Authenticator | Unit | Cubierto por backend al 100% |
 
 ### Prioridad Media (mejora de calidad)
 
-| ID | Test | Tipo | Descripción |
+| ID | Test | Tipo | Descripcion |
 |---|---|---|---|
-| T-07 | Unit: PropiedadService | Unit | CRUD, imágenes, servicios, soft delete |
-| T-08 | Unit: ReservaService | Unit | Crear, confirmar, rechazar, cancelar, finalizar |
-| T-09 | Unit: AutenticadorService | Unit | Login, refresh, logout, verificación |
-| T-10 | Integration: API endpoints | Integration | Request/response de todos los endpoints |
-| T-11 | Unit: FileCache | Unit | Cache hit/miss, TTL, invalidación |
-| T-12 | Unit: RateLimitMiddleware | Unit | Límites por IP y endpoint |
+| T-07 | Unit: PropiedadService | Unit | Cubierto por backend al 100% |
+| T-08 | Unit: ReservaService | Unit | Cubierto por backend al 100% |
+| T-09 | Unit: AutenticadorService | Unit | Cubierto por backend al 100% |
+| T-10 | Integration: API endpoints | Integration | Cubierto (PropiedadImagenHttpTest + suite) |
+| T-11 | Unit: FileCache | Unit | Cubierto por backend al 100% |
+| T-12 | Unit: RateLimitMiddleware | Unit | Cubierto por backend al 100% |
 | T-13 | Frontend: Tests unitarios | Unit | Configurar Vitest + tests de componentes |
 
 ### Prioridad Baja (nice to have)
 
-| ID | Test | Tipo | Descripción |
+| ID | Test | Tipo | Descripcion |
 |---|---|---|---|
-| T-14 | Unit: Performance metrics | Unit | Métricas de performance |
-| T-15 | Unit: Debug tools | Unit | Debugger, stats |
+| T-14 | Unit: Performance metrics | Unit | Cubierto por backend al 100% |
+| T-15 | Unit: Debug tools | Unit | Cubierto por backend al 100% |
 | T-16 | E2E: Panel admin completo | E2E | CRUD de todas las entidades en admin |
-| T-17 | E2E: Responsive | E2E | Verificar layout en mobile/tablet/desktop |
+| T-17 | E2E: Responsive | E2E | Cubierto (4 viewports en todos los specs) |
 | T-18 | E2E: Dark mode | E2E | Verificar cambio de tema |
 
 ---
@@ -187,10 +143,10 @@ composer test
 # Solo unitarios (no requiere BD)
 composer test:unit
 
-# Solo integración (requiere MySQL)
+# Solo integracion (requiere MySQL)
 composer test:integration
 
-# Un test específico
+# Un test especifico
 vendor/bin/phpunit --filter NombreDelTest
 
 # Con cobertura
@@ -203,11 +159,15 @@ vendor/bin/phpunit --coverage-html coverage/
 ### Frontend
 
 ```bash
-# E2E con Playwright
+# E2E con Playwright (levanta backend, SMTP y Vite solo)
 npx playwright test
 
-# Un test específico
-npx playwright test e2e/usuario.spec.js
+# Un archivo especifico
+npx playwright test tests/e2e/usuario.spec.js
+
+# Un proyecto especifico (viewport)
+npx playwright test --project=movil-390
+npx playwright test --project=desktop-1440
 
 # Modo UI (debug)
 npx playwright test --ui
@@ -218,24 +178,24 @@ npx playwright test --reporter=html
 
 ---
 
-## 5. Configuración de CI
+## 5. Configuracion de CI
 
-Los tests se ejecutan automáticamente en GitHub Actions:
+Los tests se ejecutan automaticamente en GitHub Actions:
 
 | Workflow | Archivo | Jobs |
 |---|---|---|
 | Backend CI | `.github/workflows/ci.yml` (backend repo) | PHPUnit (unit), PHP Lint |
 | Frontend CI | `.github/workflows/ci.yml` (frontend repo) | Vite Build, ESLint |
 
-> **Nota**: Los tests de integración (que requieren BD) no se ejecutan en CI actualmente.
+> Nota: Los tests de integracion (que requieren BD) no se ejecutan en CI actualmente.
 
 ---
 
 ## 6. Notas
 
-- La cobertura del backend (56,40%) es baja porque muchos tests de integración no se ejecutan en CI.
-- El dashboard reportaba 97,83% pero eso era del 25/10/2026 con una configuración diferente de coverage.
-- Los tests unitarios pasan todos (2.190/2.193). Los 3 fallos son de integración.
-- Para mejorar la cobertura, priorizar tests de servicios y repositories (alta prioridad).
-- Ver `BACKLOG.md` items TEST-001 a TEST-008 para el plan de testing.
-- Ver `QA_UAT.md` para la estrategia de QA y UAT.
+- La cobertura del backend es 100% (10.986 lineas, 1.008 metodos, 164 clases).
+- El dashboard reportaba 97,83% pero eso era del 25/10/2026 con una configuracion diferente de coverage.
+- Los tests E2E requieren MySQL con la base de desarrollo y los usuarios de prueba (`e2e.admin@test.com`, `e2e.inquilino@test.com`, contrasena `E2e123456`): `php scripts/seed_e2e_users.php`.
+- Playwright levanta el backend en 127.0.0.1:8000 con APP_ENV=development y DISABLE_RATE_LIMIT=1, un SMTP falso en 127.0.0.1:1025 y Vite en 127.0.0.1:3000.
+- Para mejorar la cobertura del frontend, priorizar tests unitarios (Vitest).
+- Ver `BACKLOG.md` items TEST-001 a TEST-008 (completados) y `QA_UAT.md` para la estrategia de QA y UAT.

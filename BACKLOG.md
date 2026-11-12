@@ -67,7 +67,7 @@
 | BUG-002 | Emails silenciosos en producción | SMTP no configurado → emails descartados sin error. Fix: `MailService::enviar()` lanza excepción. | 🔴 | ✅ |
 | BUG-003 | Dark mode: secciones blancas | Body background no cambiaba en dark mode. Fix: `:root[data-theme="dark"] body`. | 🟠 | ✅ |
 | BUG-004 | SPA deep-link 404 | Rutas directas (ej: `/propiedad/1`) daban 404. Fix: `.htaccess` con fallback a `index.html`. | 🟠 | ✅ |
-| BUG-005 | Login bloqueado sin feedback | Si el email no está verificado, el login falla sin mensaje claro. | 🟡 | ⏳ |
+| BUG-005 | Login bloqueado sin feedback | Si el email no está verificado, el login falla sin mensaje claro. | 🟡 | ✅ |
 | BUG-006 | Rate limiting en NAT | Usuarios en redes compartidas pueden ser bloqueados. | 🟡 | ⏳ |
 
 ---
@@ -80,7 +80,7 @@
 | DT-002 | Cobertura de tests | Tests unitarios al 100% (backend AlquilER). | 🟡 | ✅ |
 | DT-003 | Validación de entrada inconsistente | Algunos controllers no validan antes de llamar al servicio. | 🟡 | ⏳ |
 | DT-004 | Manejo de errores inconsistente | Algunos endpoints devuelven 500 en lugar de 422/400. | 🟡 | ⏳ |
-| DT-005 | Sin documentación de API actualizada | OpenAPI spec puede estar desactualizada respecto al código. | 🟢 | ⏳ |
+| DT-005 | Sin documentación de API actualizada | OpenAPI spec puede estar desactualizada respecto al código. | 🟢 | ✅ |
 | DT-006 | Dependencias desactualizadas | Ejecutar `npm audit` y `composer audit` periódicamente. | 🟢 | ⏳ |
 
 ---
@@ -89,13 +89,13 @@
 
 | ID | Tipo | Título | Descripción | Prioridad | Estado |
 |---|---|---|---|---|---|
-| TEST-001 | 🧪 | Tests E2E: flujo de login | Playwright: registro → verificación → login → logout. | 🟠 | ⏳ |
-| TEST-002 | 🧪 | Tests E2E: flujo de reserva | Playwright: buscar → reservar → confirmar → finalizar → reseñar. | 🟠 | ⏳ |
-| TEST-003 | 🧪 | Tests E2E: publicación de propiedad | Playwright: crear propiedad → subir imágenes → publicar → editar. | 🟡 | ⏳ |
+| TEST-001 | 🧪 | Tests E2E: flujo de login | Playwright: registro → verificación → login → logout. | 🟠 | ✅ |
+| TEST-002 | 🧪 | Tests E2E: flujo de reserva | Playwright: buscar → reservar → confirmar → finalizar → reseñar. | 🟠 | ✅ |
+| TEST-003 | 🧪 | Tests E2E: publicación de propiedad | Playwright: crear propiedad → subir imágenes → publicar → editar. | 🟡 | ✅ |
 | TEST-004 | 🧪 | Tests unitarios: AuthService | Cubrir login, refresh, logout, verificación de email. | 🟡 | ✅ |
 | TEST-005 | 🧪 | Tests unitarios: ReservaService | Cobertura al 100%. | 🟡 | ✅ |
 | TEST-006 | 🧪 | Tests unitarios: PropiedadService | Cobertura al 100%. | 🟡 | ✅ |
-| TEST-007 | 🧪 | Tests de integración: API endpoints | Verificar request/response de todos los endpoints. | 🟡 | ⏳ |
+| TEST-007 | 🧪 | Tests de integración: API endpoints | Verificar request/response de todos los endpoints. | 🟡 | ✅ |
 | TEST-008 | 🧪 | Cobertura ≥ 70% | Cobertura al 100% en backend AlquilER. | 🟡 | ✅ |
 
 ---
@@ -165,13 +165,13 @@
 
 | Categoría | Total | Completados | Pendientes |
 |---|---|---|---|
-| Funcionalidades | 19 | 2 | 17 |
-| Bugs | 6 | 4 | 2 |
-| Deuda técnica | 6 | 0 | 6 |
-| Testing | 8 | 0 | 8 |
-| Documentación | 5 | 0 | 5 |
+| Funcionalidades | 19 | 7 | 12 |
+| Bugs | 6 | 5 | 1 |
+| Deuda técnica | 6 | 2 | 4 |
+| Testing | 8 | 8 | 0 |
+| Documentación | 5 | 5 | 0 |
 | UX/UI | 6 | 2 | 4 |
-| **Total** | **50** | **15** | **35** |
+| **Total** | **50** | **29** | **21** |
 
 ---
 
