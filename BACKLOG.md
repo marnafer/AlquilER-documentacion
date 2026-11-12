@@ -53,7 +53,7 @@
 | ID | Tipo | Título | Descripción | Prioridad | Estado |
 |---|---|---|---|---|---|
 | BL-014 | ✨ | Animaciones de scroll reveal | Ya implementadas, verificar prefers-reduced-motion. | 🟢 | ✅ |
-| BL-015 | ✨ | SEO por página | Title, meta description, OG tags. Implementado con useSEO en 24/36 paginas (admin sin SEO). | 🟢 | 🔄 |
+| BL-015 | ✨ | SEO por página | Title, meta description, OG tags. Implementado con useSEO en todas las páginas (incluye admin con noindex). | 🟢 | ✅ |
 | BL-016 | ✨ | Carrusel de propiedades vistas recientemente | Mostrar en home las últimas vistas. | 🟢 | ✅ |
 | BL-017 | ✨ | Procesamiento de imágenes (WebP) | Generar versión WebP además de JPG/PNG. | 🟢 | ⏳ |
 
