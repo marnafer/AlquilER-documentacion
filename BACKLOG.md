@@ -29,9 +29,9 @@
 
 | ID | Tipo | Título | Descripción | Prioridad | Estado |
 |---|---|---|---|---|---|
-| BL-001 | ✨ | Configurar SMTP en producción | Sin SMTP, los emails de verificación y reset de contraseña no se envían. Configurar `MAIL_HOST`, `MAIL_PORT`, `MAIL_USERNAME`, `MAIL_PASSWORD` en `.env` de producción. | 🔴 | ⏳ |
-| BL-002 | ✨ | Configurar APP_ENV=production | Sin esto, las cookies no usan `Secure=true` ni `SameSite=None`, rompiendo la auth cross-origin. | 🔴 | ⏳ |
-| BL-003 | ✨ | Validación de complejidad de contraseña | Agregar validación en `UsuarioValidator`: mínimo 8 caracteres, 1 mayúscula, 1 número. | 🟠 | ✅ |
+| BL-001 | ✨ | Configurar SMTP en producción | Sin SMTP, los emails de verificación y reset de contraseña no se envían. Configurar MAIL_HOST, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD en .env de producción. | 🔴 | ✅ |
+| BL-002 | ✨ | Configurar APP_ENV=production | Sin esto, las cookies no usan Secure=true ni SameSite=None, rompiendo la auth cross-origin. | 🔴 | ✅ |
+| BL-003 | ✨ | Validación de complejidad de contraseña | Agregar validación en UsuarioValidator: mínimo 8 caracteres, 1 mayúscula, 1 número. | 🟠 | ✅ |
 | BL-004 | ✨ | Política de privacidad | Página de política y consentimiento explícito en el registro. | 🟠 | ✅ |
 | BL-005 | ✨ | Derecho al olvido | Endpoint para que el usuario solicite eliminación de su cuenta y datos. | 🟠 | ⏳ |
 
@@ -39,25 +39,23 @@
 
 | ID | Tipo | Título | Descripción | Prioridad | Estado |
 |---|---|---|---|---|---|
-| BL-008 | ✨ | Internacionalización (i18n) | Soporte multi-idioma. Actualmente solo español. Externalizar textos. | 🟡 | ⏳ |
-| BL-009 | ✨ | Accesibilidad (a11y) | Cumplir WCAG 2.1 AA: ARIA labels, navegación por teclado, contraste. | 🟡 | ⏳ |
-| BL-010 | ✨ | Code splitting / lazy loading | Reducir bundle principal (~749KB) con `React.lazy()` y `Suspense`. | 🟡 | ✅ |
-| BL-011 | ✨ | CI/CD con GitHub Actions | Automatizar tests y deploy. Actualmente deploy manual por FTP. | 🟡 | ✅ |
-| BL-012 | ✨ | Rotación de logs | Extender rotación (5MB, 3 gen) a `emails.log`, `errores.log`, `debug.log`. | 🟡 | 🔄 |
-| BL-013 | ✨ | Feature flags | Sistema para habilitar/deshabilitar funcionalidades sin deploy. | 🟡 | ⏳ |
-| BL-014 | ✨ | Health check endpoint | `GET /api/health` que verifique BD, storage y servicios. | 🟡 | ⏳ |
-| BL-015 | ✨ | Alertas de errores críticos | Email o webhook cuando ocurre un error 500. | 🟡 | ⏳ |
-| BL-016 | ✨ | Almacenamiento externo (S3/Cloudinary) | Mover imágenes de `storage/uploads` a almacenamiento externo. | 🟡 | ⏳ |
-| BL-017 | ✨ | Moderación de reseñas | Opción de moderación previa antes de publicar reseñas. | 🟡 | ⏳ |
+| BL-006 | ✨ | Code splitting / lazy loading | Reducir bundle principal (~749KB) con React.lazy() y Suspense. | 🟡 | ✅ |
+| BL-007 | ✨ | CI/CD con GitHub Actions | Automatizar tests y deploy. Actualmente deploy manual por FTP. | 🟡 | ✅ |
+| BL-008 | ✨ | Rotación de logs | Extender rotación (5MB, 3 gen) a emails.log, errores.log, debug.log. | 🟡 | 🔄 |
+| BL-009 | ✨ | Feature flags | Sistema para habilitar/deshabilitar funcionalidades sin deploy. | 🟡 | ⏳ |
+| BL-010 | ✨ | Health check endpoint | GET /api/health que verifique BD, storage y servicios. | 🟡 | ⏳ |
+| BL-011 | ✨ | Alertas de errores críticos | Email o webhook cuando ocurre un error 500. | 🟡 | ⏳ |
+| BL-012 | ✨ | Almacenamiento externo (S3/Cloudinary) | Mover imágenes de storage/uploads a almacenamiento externo. | 🟡 | ⏳ |
+| BL-013 | ✨ | Moderación de reseñas | Opción de moderación previa antes de publicar reseñas. | 🟡 | ⏳ |
 
 ### 2.3 Baja prioridad
 
 | ID | Tipo | Título | Descripción | Prioridad | Estado |
 |---|---|---|---|---|---|
-| BL-018 | ✨ | Animaciones de scroll reveal | Ya implementadas, verificar `prefers-reduced-motion`. | 🟢 | ✅ |
-| BL-019 | ✨ | SEO por página | Title, meta description, OG tags. Implementado con useSEO en 24/36 paginas (admin sin SEO). | 🟢 | 🔄 |
-| BL-020 | ✨ | Carrusel de propiedades vistas recientemente | Mostrar en home las últimas vistas. | 🟢 | ✅ |
-| BL-021 | ✨ | Procesamiento de imágenes (WebP) | Generar versión WebP además de JPG/PNG. | 🟢 | ⏳ |
+| BL-014 | ✨ | Animaciones de scroll reveal | Ya implementadas, verificar prefers-reduced-motion. | 🟢 | ✅ |
+| BL-015 | ✨ | SEO por página | Title, meta description, OG tags. Implementado con useSEO en 24/36 paginas (admin sin SEO). | 🟢 | 🔄 |
+| BL-016 | ✨ | Carrusel de propiedades vistas recientemente | Mostrar en home las últimas vistas. | 🟢 | ✅ |
+| BL-017 | ✨ | Procesamiento de imágenes (WebP) | Generar versión WebP además de JPG/PNG. | 🟢 | ⏳ |
 
 ---
 
