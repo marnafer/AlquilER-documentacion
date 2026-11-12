@@ -107,7 +107,7 @@
 | DOC-001 | 📋 | Actualizar OpenAPI spec | openapi.json regenerado desde src/Docs. | 🟡 | ✅ |
 | DOC-002 | 📋 | Actualizar README-BACKEND | Secciones de migraciones y tests agregadas. | 🟢 | ✅ |
 | DOC-003 | 📋 | Actualizar README-FRONTEND | Variables de entorno y build documentados. | 🟢 | ✅ |
-| DOC-004 | 📋 | Documentar endpoints de admin | Agregar al API-CONTRACT los endpoints `/admin/*`. | 🟡 | ⏳ |
+| DOC-004 | 📋 | Documentar endpoints de admin | Agregar al API-CONTRACT los endpoints `/admin/*`. | 🟡 | ✅ |
 | DOC-005 | 📋 | Changelog actualizado | Changelog actualizado con cambios recientes. | 🟢 | ✅ |
 
 ---
