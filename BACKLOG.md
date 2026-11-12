@@ -41,7 +41,7 @@
 |---|---|---|---|---|---|
 | BL-006 | ✨ | Code splitting / lazy loading | Reducir bundle principal (~749KB) con React.lazy() y Suspense. | 🟡 | ✅ |
 | BL-007 | ✨ | CI/CD con GitHub Actions | Automatizar tests y deploy. Actualmente deploy manual por FTP. | 🟡 | ✅ |
-| BL-008 | ✨ | Rotación de logs | Extender rotación (5MB, 3 gen) a emails.log, errores.log, debug.log. | 🟡 | 🔄 |
+| BL-008 | ✨ | Rotación de logs | Rotación (5MB, 3 gen) en emails.log, errores.log, debug.log. | 🟡 | ✅ |
 | BL-009 | ✨ | Feature flags | Sistema para habilitar/deshabilitar funcionalidades sin deploy. | 🟡 | ⏳ |
 | BL-010 | ✨ | Health check endpoint | GET /api/health que verifique BD, storage y servicios. | 🟡 | ⏳ |
 | BL-011 | ✨ | Alertas de errores críticos | Email o webhook cuando ocurre un error 500. | 🟡 | ⏳ |
