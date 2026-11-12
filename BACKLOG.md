@@ -32,7 +32,7 @@
 | BL-001 | ✨ | Configurar SMTP en producción | Sin SMTP, los emails de verificación y reset de contraseña no se envían. Configurar `MAIL_HOST`, `MAIL_PORT`, `MAIL_USERNAME`, `MAIL_PASSWORD` en `.env` de producción. | 🔴 | ⏳ |
 | BL-002 | ✨ | Configurar APP_ENV=production | Sin esto, las cookies no usan `Secure=true` ni `SameSite=None`, rompiendo la auth cross-origin. | 🔴 | ⏳ |
 | BL-003 | ✨ | Validación de complejidad de contraseña | Agregar validación en `UsuarioValidator`: mínimo 8 caracteres, 1 mayúscula, 1 número. | 🟠 | ✅ |
-| BL-004 | ✨ | Política de privacidad | Implementar página de política de privacidad y consentimiento explícito en el registro. | 🟠 | 🔄 |
+| BL-004 | ✨ | Política de privacidad | Página de política y consentimiento explícito en el registro. | 🟠 | ✅ |
 | BL-005 | ✨ | Derecho al olvido | Endpoint para que el usuario solicite eliminación de su cuenta y datos. | 🟠 | ⏳ |
 | BL-006 | ✨ | Backups automáticos de BD | Configurar backups diarios en alwaysdata. | 🟠 | ⏳ |
 | BL-007 | ✨ | Monitoreo de uptime | Configurar UptimeRobot o similar para detectar caídas. | 🟠 | ⏳ |
@@ -177,7 +177,7 @@
 | Testing | 8 | 0 | 8 |
 | Documentación | 5 | 0 | 5 |
 | UX/UI | 6 | 2 | 4 |
-| **Total** | **52** | **14** | **38** |
+| **Total** | **52** | **15** | **37** |
 
 ---
 
