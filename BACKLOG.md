@@ -121,7 +121,6 @@
 | UX-003 | Empty states con acciones | Estados vacíos con botones de acción (ej: "Ir al catálogo"). | 🟢 | ✅ |
 | UX-004 | Confirmación de acciones destructivas | Modal de confirmación antes de eliminar. | 🟢 | ⏳ |
 | UX-005 | Indicador de fuerza de contraseña | Mostrar barra de fuerza en registro. | 🟢 | ⏳ |
-| UX-006 | Paginación infinita (opcional) | Scroll infinito en catálogo como alternativa a paginación. | 🟢 | ⏳ |
 
 ---
 
