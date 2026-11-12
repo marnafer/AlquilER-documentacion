@@ -116,7 +116,7 @@
 
 | ID | Título | Descripción | Prioridad | Estado |
 |---|---|---|---|---|
-| UX-001 | Skeletons en carga | Agregar skeletons en catálogo y detalle. | 🟡 | 🔄 |
+| UX-001 | Skeletons en carga | Agregar skeletons en catálogo y detalle. | 🟡 | ✅ |
 | UX-002 | Toast de éxito/error | Feedback visual consistente en todas las acciones. | 🟡 | ✅ |
 | UX-003 | Empty states con acciones | Estados vacíos con botones de acción (ej: "Ir al catálogo"). | 🟢 | ✅ |
 | UX-004 | Confirmación de acciones destructivas | Modal de confirmación antes de eliminar. | 🟢 | ✅ |
@@ -169,8 +169,8 @@
 | Deuda técnica | 6 | 2 | 4 |
 | Testing | 8 | 8 | 0 |
 | Documentación | 5 | 5 | 0 |
-| UX/UI | 6 | 4 | 2 |
-| **Total** | **50** | **31** | **19** |
+| UX/UI | 6 | 5 | 1 |
+| **Total** | **50** | **32** | **18** |
 
 ---
 
