@@ -8,6 +8,13 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 ## [Unreleased]
 
 ### Added
+- Backend: cobertura de tests al 100% (2.300 tests, 7.115 assertions).
+- Backend: validación de complejidad de contraseña (mín. 8 chars, 1 mayúscula, 1 número).
+- Backend: generación de versión WebP de imágenes procesadas.
+- Backend: rotación de logs (5MB, 3 gen) en errores, debug y emails.
+- Frontend: consentimiento explícito de política de privacidad en el registro.
+- Frontend: SEO (title, description, OG tags) en todas las páginas, incluyendo admin con noindex.
+- Documentación: actualización de OpenAPI spec, READMEs y API-CONTRACT (endpoints admin).
 - Repositorio de documentación con guías de despliegue, variables de entorno, esquema de BD y troubleshooting.
 
 ## [1.0.0] - 2026-11-11

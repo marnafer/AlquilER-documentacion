@@ -295,3 +295,20 @@ imágenes y servicios se debe consultar el detalle `GET /api/propiedades/{id}`.
 | `GET /api/logs-actividad` | Lista historial. | Sí - Admin | • Orden cronológico; • exclusivo administradores |
 | `GET /api/logs-actividad/{id}` | Consulta log puntual. | Sí - Admin | • Solo lectura |
 | *No expuestos* | CRUD manual | N/A | • Logs autogenerados por el sistema, inmutables |
+
+## 12. Endpoints de administración
+
+Los siguientes endpoints requieren rol administrador (`rol_id = 2`):
+
+- `GET /api/admin` - Panel principal
+- `GET/POST /api/admin/usuarios` - Gestión de usuarios
+- `GET/POST/PUT/DELETE /api/admin/categorias` - Gestión de categorías
+- `GET/POST/PUT/DELETE /api/admin/provincias` - Gestión de provincias
+- `GET/POST/PUT/DELETE /api/admin/localidades` - Gestión de localidades
+- `GET/POST/PUT/DELETE /api/admin/roles` - Gestión de roles
+- `GET/POST/PUT/DELETE /api/admin/servicios` - Gestión de servicios
+- `GET /api/admin/resenas` - Gestión de reseñas
+- `GET /api/admin/reservas` - Gestión de reservas
+- `GET /api/admin/consultas` - Gestión de consultas
+- `GET /api/admin/logs` - Logs de actividad
+- `GET /api/admin/propiedades` - Gestión de propiedades
